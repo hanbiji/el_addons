@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_form_amazon_order_import" model="ir.ui.view">
+        <field name="name">amazon_order_import</field>
+        <field name="model">amazon.order.import</field>
+        <field name="arch" type="xml">
+            <form>
+                    <group>
+                        <field name="amazon" />
+                    </group>
+                    <group>
+                        <field name="order_status" />
+                    </group>
+                    <group>
+                        <field name="last_updated_after" />
+                    </group>
+                    <group>
+                        <field name="last_updated_before" />
+                    </group>
+                    <group>
+                        <field name="fulfillment_channel" />
+                    </group>
+                <footer>
+                    <button type="object" name="do_order_import" string="Import Order" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

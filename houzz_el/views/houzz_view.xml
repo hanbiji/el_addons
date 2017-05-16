@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_form_houzz_config" model="ir.ui.view">
+		<field name="name">Create Houzz Profile</field>
+		<field name="model">houzz.config</field>
+		<field name="arch" type="xml">
+			<form>
+                <header>
+						<button name="do_import_order" type="object" string="导入订单" class="oe_highlight" />
+					</header>
+                <sheet>
+                    <div>
+                        <label for="name" string="APP ID" />
+                        <field name="name" placeholder="APP ID" />
+                    </div>
+                    <div>
+                        <label for="houzz_user_name" string="帐号"/>
+                        <field name="houzz_user_name" placeholder="输入帐号" />
+                    </div>
+                    <div>
+                        <label for="houzz_token" string="Token" />
+                        <field name="houzz_token" placeholder="输入Token" />
+                    </div>
+                </sheet>
+
+			</form>
+		</field>
+	</record>
+
+    <record id="view_tree_houzz_config" model="ir.ui.view">
+        <field name="name">Houzz Profile</field>
+		<field name="model">houzz.config</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="houzz_user_name"/>
+                <field name="houzz_token"/>
+            </tree>
+        </field>
+    </record>
+
+
+</odoo>

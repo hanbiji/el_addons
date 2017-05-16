@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<odoo>
+
+	<record id="view_tracking_reference_form" model="ir.ui.view">
+		<field name="name">form.tracking.reference</field>
+		<field name="model">tracking.reference</field>
+		<field name="arch" type="xml">
+			<form>
+				<field name="carrier_id" />
+				:
+				<field name="tracking_ref" placeholder="输入物流单号" />
+				
+			</form>
+		</field>
+	</record>
+
+	<record id="view_tracking_reference_tree" model="ir.ui.view">
+		<field name="name">view.tree.tracking.reference</field>
+		<field name="model">tracking.reference</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="carrier_id" />
+				<field name="tracking_ref" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_tracking_reference_tree_stock" model="ir.ui.view">
+		<field name="name">view.tree.tracking.reference.stock</field>
+		<field name="model">tracking.reference</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="stock_picking_id" />
+				<field name="carrier_id" />
+				<field name="tracking_ref" />
+				<field name="weight" />
+				<field name="actual_cost" />
+				<field name="fuel_cost" />
+				<field name="total_cost" />
+				<field name="pay" />
+				<field name="pay_date" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_tracking_reference_filter" model="ir.ui.view">
+		<field name="model">tracking.reference</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="tracking_ref" />
+				<field name="stock_picking_id" />
+				<filter name="filter_not_pay" string="未结算" domain="[('pay','=',False)]" />
+				<filter name="filter_pay" string="已结算" domain="[('pay','!=',False)]" />
+			</search>
+		</field>
+	</record>
+
+
+</odoo>

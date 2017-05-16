@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<odoo>
+	<!-- Action to open To-do Task list -->
+	<act_window view_id="view_tracking_reference_tree_stock" id="action_tracking_reference" name="Tracking" res_model="tracking.reference" view_mode="tree,form" />
+	
+	<!-- App menu items -->
+	<menuitem id="menu_tracking_reference_view" name="物流单号"
+		parent="stock.menu_stock_root" sequence="10" action="action_tracking_reference" />
+</odoo>

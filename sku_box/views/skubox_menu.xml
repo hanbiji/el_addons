@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+		<!-- Action to open To-do Task list -->
+		<act_window id="action_sku_box" name="SKU BOX List" res_model="sku.box" view_mode="tree,form" />
+		<act_window id="action_sku_box_form" name="SKU BOX Form" res_model="sku.box" view_mode="form" />
+		<!-- Menu item to open To-do Task list -->
+		<menuitem id="menu_sku_box" name="SKU BOX" action="action_sku_box" />
+		<menuitem id="menu_sku_box_create" name="Create SKU" action="action_sku_box_form" parent="menu_sku_box" />
+		<menuitem id="menu_sku_box_list" name="SKU List" action="action_sku_box" parent="menu_sku_box" />
+	</data>
+</odoo>

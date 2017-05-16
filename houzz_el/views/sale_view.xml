@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_form_view_el" model="ir.ui.view">
+        <field name="name">sale.order.form.view.el</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="houzz_process_order" type="object" string="Houzz Process" attrs="{'invisible': [('houzz_order_status', '!=', 'Placed')]}"/>
+                <button name="houzz_charge_order" type="object" string="Houzz 收钱" attrs="{'invisible': [('houzz_order_status', '!=', 'Processing')]}"/>
+            </xpath>
+			<field name="partner_id" position="after">
+                <field name="houzz_config_id" attrs="{'invisible':[('houzz_config_id', '=', False), ('state', '!=', 'draft')]}" />
+                <field name="houzz_order_status" attrs="{'invisible':[('houzz_config_id', '=', False), ('state', '!=', 'draft')]}"/>
+			</field>
+		</field>
+    </record>
+
+</odoo>

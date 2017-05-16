@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_form_amazon_config" model="ir.ui.view">
+		<field name="name">Create Amazon Profile</field>
+		<field name="model">amazon</field>
+		<field name="arch" type="xml">
+			<form>
+                <header>
+
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                    <group>
+                        <field name="access_key" />
+                    </group>
+                    <group>
+                        <field name="secret_key" password="True" />
+                    </group>
+                    <group>
+                        <field name="account_id" />
+                    </group>
+                    <group>
+                        <group><field name="region" /></group>
+                        <group><field name="marketplace_id" /></group>
+
+                    </group>
+                </sheet>
+			</form>
+		</field>
+	</record>
+
+    <record id="view_tree_amazon_config" model="ir.ui.view">
+        <field name="name">Amazon Profile</field>
+		<field name="model">amazon</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="access_key" />
+                <field name="secret_key" password="True" />
+                <field name="account_id" />
+                <field name="region" />
+                <field name="marketplace_id" />
+            </tree>
+        </field>
+    </record>
+
+
+</odoo>

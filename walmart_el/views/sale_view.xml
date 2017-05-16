@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_form_view_el" model="ir.ui.view">
+        <field name="name">sale.order.form.view.el</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+			<field name="partner_id" position="after">
+                <field name="walmart_id" attrs="{'invisible':[('walmart_id', '=', False), ('state', '!=', 'draft')]}" />
+                <field name="walmart_order_status" attrs="{'invisible':[('walmart_id', '=', False), ('state', '!=', 'draft')]}" />
+			</field>
+		</field>
+    </record>
+</odoo>

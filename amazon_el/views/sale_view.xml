@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_form_view_el" model="ir.ui.view">
+        <field name="name">sale.order.form.view.el</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="amazon_id" attrs="{'invisible':[('amazon_id', '=', False), ('state', '!=', 'draft')]}"/>
+                <field name="fulfillment_channel"
+                       attrs="{'invisible':[('amazon_id', '=', False), ('state', '!=', 'draft')]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="amazon_view_sales_order_filter" model="ir.ui.view">
+        <field name="name">sale.order.list.select.amazon</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <filter string="FBA" domain="[('fulfillment_channel','=','AFN')]" name="filter_fba"/>
+                <filter string="MFN" domain="[('fulfillment_channel','=','MFN')]" name="filter_mfn"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

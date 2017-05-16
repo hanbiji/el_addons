@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<act_window id="action_amazon_config" name="Amazon Profile" res_model="amazon" view_mode="tree,form" />
+	<act_window id="action_amazon_order_import" target="new" name="AMAZON 订单导入" res_model="amazon.order.import" view_mode="form" multi="True" />
+	<act_window view_id="view_order_tree_amazon" id="amazon_order_list" name="AMAZON Orders" context="{'search_default_filter_mfn': True}" domain="[('amazon_id', '!=', None)]" res_model="sale.order" view_mode="tree,form" />
+	<!-- App menu items -->
+	<menuitem id="menu_amazon" action="amazon_order_list" name="AMAZON" sequence="10" />
+	<menuitem id="menu_amazon_order_tree" action="amazon_order_list" name="订单管理" parent="menu_amazon" sequence="8" />
+	<menuitem id="menu_amazon_config_tree" action="action_amazon_config" name="AMAZON 配置" parent="menu_amazon" sequence="9" />
+	<menuitem id="amazon_order_import" action="action_amazon_order_import" name="AMAZON 订单导入" parent="menu_amazon" sequence="10" />
+
+</odoo>

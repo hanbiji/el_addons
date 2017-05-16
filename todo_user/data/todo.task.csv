@@ -1,0 +1,3 @@
+id,name,user_id/id,date_deadline,is_done,active
+todo_task_a,abcdefg,base.user_root,2017-04-06,FALSE,TRUE
+todo_task_b,Jest test abcde,base.user_root,2017-04-08,FALSE,TRUE

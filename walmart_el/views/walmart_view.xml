@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_form_walmart_el_config" model="ir.ui.view">
+		<field name="name">Create Walmart Profile</field>
+		<field name="model">walmart.el</field>
+		<field name="arch" type="xml">
+			<form>
+                <header>
+
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                    <group>
+                        <field name="private_key" />
+                    </group>
+                    <group>
+                        <field name="channel_type" />
+                    </group>
+                    <group>
+                        <field name="consumer_id" />
+                    </group>
+
+                </sheet>
+			</form>
+		</field>
+	</record>
+
+    <record id="view_tree_walmart_el_config" model="ir.ui.view">
+        <field name="name">Walmart Profile</field>
+		<field name="model">walmart.el</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="channel_type" />
+                <field name="consumer_id" />
+            </tree>
+        </field>
+    </record>
+
+
+</odoo>

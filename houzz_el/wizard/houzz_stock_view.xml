@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_form_houzz_stock" model="ir.ui.view">
+        <field name="name">houzz_stock</field>
+        <field name="model">houzz.stock</field>
+        <field name="arch" type="xml">
+            <form>
+                    <group>
+                        <field name="houzz" />
+                    </group>
+                <footer>
+                    <button type="object" name="do_update_stock" string="同步库存" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

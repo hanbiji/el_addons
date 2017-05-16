@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<act_window id="action_houzz_config" name="Houzz Profile" res_model="houzz.config" view_mode="tree,form" />
+	<act_window id="action_houzz_import" target="new" name="HOUZZ 订单导入" res_model="houzz.order.import" view_mode="form" multi="True" />
+	<act_window id="action_houzz_stock" target="new" name="HOUZZ 库存同步" res_model="houzz.stock" view_mode="form" multi="True" />
+	<act_window id="houzz_order_list" view_id="view_order_tree_houzz" name="HOUZZ Orders" context="" domain="[('houzz_config_id', '!=', None)]" res_model="sale.order" view_mode="tree,form" />
+	<!-- App menu items -->
+	<menuitem id="menu_houzz_config" action="houzz_order_list" name="HOUZZ" sequence="10" />
+	<menuitem id="menu_houzz_order_tree" action="houzz_order_list" name="订单管理" parent="menu_houzz_config" sequence="8" />
+	<menuitem id="menu_houzz_config_tree" action="action_houzz_config" name="HOUZZ 配置" parent="menu_houzz_config" sequence="9" />
+	<menuitem id="houzz_import" action="action_houzz_import" name="HOUZZ 订单导入" parent="menu_houzz_config" sequence="10" />
+	<menuitem id="houzz_update_stock" action="action_houzz_stock" name="HOUZZ 库存同步" parent="menu_houzz_config" sequence="11" />
+
+</odoo>

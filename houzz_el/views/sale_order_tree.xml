@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_tree_houzz" model="ir.ui.view">
+        <field name="name">sale.order.tree.houzz</field>
+        <field name="model">sale.order</field>
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Orders" decoration-primary="state=='draft'" decoration-bf="message_needaction==True" decoration-muted="state=='cancel'">
+                <field name="message_needaction" invisible="1"/>
+                <field name="houzz_config_id"/>
+                <field name="client_order_ref" string="Houzz id"/>
+                <field name="name" string="Order Number"/>
+                <field name="date_order"/>
+                <field name="partner_id"/>
+                <field name="user_id" invisible="1"/>
+                <field name="amount_total" sum="Total Tax Included" widget="monetary"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="invoice_status" invisible="1"/>
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+</odoo>
+

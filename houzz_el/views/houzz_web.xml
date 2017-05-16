@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="hello" name="Hello Template">
+        <h1>Hello World !</h1>
+    </template>
+</odoo>

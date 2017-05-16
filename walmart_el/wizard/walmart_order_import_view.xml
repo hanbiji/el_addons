@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_form_walmart_el_order_import" model="ir.ui.view">
+        <field name="name">walmart_el_order_import</field>
+        <field name="model">walmart.el.order.import</field>
+        <field name="arch" type="xml">
+            <form>
+                    <group>
+                        <field name="walmart_el" />
+                    </group>
+                    <group>
+                        <field name="order_status" />
+                    </group>
+                    <group>
+                        <field name="last_updated_after" />
+                    </group>
+                    <group>
+                        <field name="last_updated_before" />
+                    </group>
+
+                <footer>
+                    <button type="object" name="do_order_import" string="Import Order" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
