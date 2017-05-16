@@ -280,8 +280,8 @@ class WalmartElOrderImport(models.TransientModel):
             i += 1
             if skus:
                 bulks_sku = self.get_bulks(skus)
-                # walmart_inventory.update_bulk_inventory(bulks_sku)
-                print bulks_sku
+                walmart_inventory.update_bulk_inventory(bulks_sku)
+                # print bulks_sku
             else:
                 next_items = False
 
