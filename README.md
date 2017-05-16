@@ -1,2 +1,2 @@
 # el_addons
-公司odoo扩展
+跨境电商平台odoo扩展
