@@ -21,7 +21,7 @@ class WalmartElOrderImport(models.TransientModel):
         ('Shipped', 'Shipped'),
         ('Cancelled', 'Cancelled')
     ], default='Created')
-    last_updated_after = fields.Datetime('From Date', required=True)
+    last_updated_after = fields.Datetime('From Date')
     last_updated_before = fields.Datetime('From To')
 
     @api.multi
@@ -250,7 +250,7 @@ class WalmartElOrderImport(models.TransientModel):
     @api.multi
     def do_update_stock(self):
         """"Update stock"""
-
+        _logger.info('======================Update Stock===================')
         self.ensure_one()
         walmart_item = walmart.WalmartItems(self.walmart_el.consumer_id, self.walmart_el.private_key,
                                              self.walmart_el.channel_type)
@@ -261,10 +261,50 @@ class WalmartElOrderImport(models.TransientModel):
         while next_items:
             offset = i * limit
             items = walmart_item.get_items(limit=limit, offset=offset)
-            if items['code'] == 'succes':
-                sku_list.append(items['list'])
+            # _logger.info(items)
+            if items['code'] == 'success':
+                sku_list += items['list']
             else:
                 next_items = False
             i += 1
 
-        _logger.info(sku_list)
+        limit = 2000
+        i = 0
+        next_items = True
+        walmart_inventory = walmart.WalmartInventory(self.walmart_el.consumer_id, self.walmart_el.private_key,
+                                             self.walmart_el.channel_type)
+        while next_items:
+            offset = i * limit
+            end = offset + limit
+            skus = sku_list[offset:end]
+            i += 1
+            if skus:
+                bulks_sku = self.get_bulks(skus)
+                # walmart_inventory.update_bulk_inventory(bulks_sku)
+                print bulks_sku
+            else:
+                next_items = False
+
+        return True
+
+    @api.model
+    def get_bulks(self, skus):
+        """查询库存"""
+        bulks = []
+        products = self.env['product.product'].search([('default_code', 'in', skus)])
+        for product in products:
+            sku = product['default_code']
+            fulfillment = 10
+            qty = 0
+            quant = self.env['stock.quant'].search([('product_id', '=', product['id'])])
+            for q in quant:
+                qty += q['qty']
+            if qty == 0:
+                fulfillment = product['sale_delay'] if product['sale_delay'] > 0 else 20
+                qty = 100
+            bulks.append({
+                'sku': sku,
+                'qty': qty,
+                'fulfillment': fulfillment
+            })
+        return bulks

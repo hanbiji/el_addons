@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 <odoo>
 	<act_window id="action_walmart_el_config" name="Walmart Profile" res_model="walmart.el" view_mode="tree,form" />
-	<act_window id="action_walmart_el_order_import" target="new" name="Walmart 订单导入" res_model="walmart.el.order.import" view_mode="form" multi="True" />
 	<act_window id="walmart_order_list" view_id="view_order_tree_walmart" name="Walmart Orders" context="" domain="[('walmart_id', '!=', None)]" res_model="sale.order" view_mode="tree,form" />
+	<act_window id="action_walmart_el_order_import" target="new" name="Walmart 订单导入" res_model="walmart.el.order.import" view_mode="form" multi="True" />
+	<act_window id="action_walmart_el_stock_update" view_id="view_form_walmart_el_stock_update" target="new" name="库存同步" res_model="walmart.el.order.import" view_mode="form" multi="True" />
 	<!-- App menu items sale.action_quotations -->
 	<menuitem id="menu_walmart_el" action="walmart_order_list" name="WALMART" sequence="10" />
 	<menuitem id="menu_walmart_el_order_tree" action="walmart_order_list" name="订单管理" parent="menu_walmart_el" sequence="8" />
 	<menuitem id="menu_walmart_el_config_tree" action="action_walmart_el_config" name="Walmart 配置" parent="menu_walmart_el" sequence="9" />
 	<menuitem id="walmart_el_order_import" action="action_walmart_el_order_import" name="Walmart 订单导入" parent="menu_walmart_el" sequence="10" />
+	<menuitem id="walmart_stock_update" action="action_walmart_el_stock_update" name="库存同步" parent="menu_walmart_el" sequence="11" />
 </odoo>
