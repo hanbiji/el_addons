@@ -6,10 +6,12 @@
 		<field name="model">tracking.reference</field>
 		<field name="arch" type="xml">
 			<form>
-				<field name="carrier_id" />
-				:
-				<field name="tracking_ref" placeholder="输入物流单号" />
-				
+				<group>
+					<field name="stock_picking_id" ref="stock.picking" />
+					<field name="carrier_id" />
+					<field name="tracking_ref" placeholder="输入物流单号" />
+				</group>
+
 			</form>
 		</field>
 	</record>

@@ -13,7 +13,9 @@ _logger = logging.getLogger(__name__)
 
 class DeliveryCarrier(models.Model):
     _inherit = 'delivery.carrier'
-    #_inherits = {'product.product': 'product_id'}
+    carrier_code = fields.Char('AMAZON Carrier Code')
+    walmart_carrier_code = fields.Char('WALMART Carrier Code')
+    houzz_carrier_code = fields.Char('HOUZZ Carrier Code')
     
     @api.multi
     def get_price_available(self, order):

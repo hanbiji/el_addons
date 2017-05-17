@@ -1,110 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<record id="view_delivery_price_rule_form" model="ir.ui.view">
-		<field name="name">delivery.price.rule.form</field>
-		<field name="model">delivery.price.rule</field>
-		<field name="priority">15</field>
-		<field name="arch" type="xml">
-			<form string="Price Rules">
-				<group>
-					<field name="name" invisible="1" />
-				</group>
-				<group>
-					<label for="first_weight" string="首重" />
-					<div>
-						<field name='first_weight' size="40" />
-					</div>
-					<label for="added_weight" string="续重" />
-					<div>
-						<field name='added_weight' size="40" />
-					</div>
-					<label for="max_length" String="最长边" />
-					<div class="o_row">
-						<field name="length_operator" class="oe_inline" />
-						<field name="max_length" class="oe_inline" />
-					</div>
-					<label for="max_perimeter" String="最大周长" />
-					<div class="o_row">
-						<field name="perimeter_operator" class="oe_inline" />
-						<field name="max_perimeter" class="oe_inline" />
-					</div>
-					<label for="variable" string="Condition" />
-					<div class="o_row">
-						<field name="variable" />
-						<field name="operator" />
-						<field name="max_value" />
-					</div>
-					<label for="list_base_price" string="Sale Price" />
-					<div>
-						<field name="list_base_price" class="oe_inline" />
-						+
-						<field name="list_price" class="oe_inline" />
-						*
-						<field name="variable_factor" class="oe_inline" />
-					</div>
-					<label for="surcharge" string="附加费用" />
-					<div>
-						<field name='surcharge' size="40" />
-					</div>
-
-					<label for="discount" string="折扣" />
-					<div>
-						<field name='discount' size="40" />
-					</div>
-
-					<label for="volumetric_weight_numerator" string="体积重除数" />
-					<div class="o_row">
-						<field name='volumetric_weight_numerator' />
-					</div>
-
-					<field name="standard_price" invisible="1" />
-				</group>
-			</form>
-		</field>
-	</record>
-
-	<record id="view_picking_withcarrier_out_form" model="ir.ui.view">
-            <field name="name">delivery.stock.picking_withcarrier.form.view</field>
-            <field name="model">stock.picking</field>
-            <field name="inherit_id" ref="stock.view_picking_form"/>
-            <field name="priority">8</field>
-            <field name="arch" type="xml">
-              <data>
-                <xpath expr="//page[@name='extra']" position="inside">
-                <separator string="Delivery Information"/>
+    <record id="view_delivery_el_carrier_form" model="ir.ui.view">
+        <field name="name">delivery.el.carrier.form</field>
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//h1" position="after">
                 <group>
-                    <group name='carrier_data'>
-                        <field name="carrier_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
-                        <field name="delivery_type" attrs="{'invisible':True}"/>
-                        <label for="carrier_tracking_ref"/>
-                        <div name="tracking">
-                            <field name="carrier_tracking_ref" class="oe_inline"/>
-                            <button type='object' class="fa fa-arrow-right oe_link" name="cancel_shipment" string="Cancel" attrs="{'invisible':['|','|','|',('carrier_tracking_ref','=',False),('delivery_type','in', ['fixed', 'base_on_rule']),('delivery_type','=',False),('state','not in',('done'))]}"/>
-                        </div>
-                    </group>
-                    <group>
-                        <label for="weight" string="Weight"/>
-                        <div>
-                            <field name="weight" class="oe_inline"/>
-                            <field name="weight_uom_id" nolabel="1" class="oe_inline" style="margin-left:5px"/>
-                        </div>
-                        <field name="shipping_weight"/>
-                        <field name="number_of_packages" attrs="{'readonly': [('state', '=', 'done')]}"/>
-                    </group>
+                    <label for="carrier_code" />
+                    <div>
+                        <field name="carrier_code"/>
+                    </div>
+                    <label for="walmart_carrier_code" />
+                    <div>
+                        <field name="walmart_carrier_code"/>
+                    </div>
+                    <label for="houzz_carrier_code" />
+                    <div>
+                        <field name="houzz_carrier_code"/>
+                    </div>
                 </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_delivery_price_rule_form" model="ir.ui.view">
+        <field name="name">delivery.price.rule.form</field>
+        <field name="model">delivery.price.rule</field>
+        <field name="priority">15</field>
+        <field name="arch" type="xml">
+            <form string="Price Rules">
+                <group>
+                    <field name="name" invisible="1"/>
+                </group>
+                <group>
+                    <label for="first_weight" string="首重"/>
+                    <div>
+                        <field name='first_weight' size="40"/>
+                    </div>
+                    <label for="added_weight" string="续重"/>
+                    <div>
+                        <field name='added_weight' size="40"/>
+                    </div>
+                    <label for="max_length" String="最长边"/>
+                    <div class="o_row">
+                        <field name="length_operator" class="oe_inline"/>
+                        <field name="max_length" class="oe_inline"/>
+                    </div>
+                    <label for="max_perimeter" String="最大周长"/>
+                    <div class="o_row">
+                        <field name="perimeter_operator" class="oe_inline"/>
+                        <field name="max_perimeter" class="oe_inline"/>
+                    </div>
+                    <label for="variable" string="Condition"/>
+                    <div class="o_row">
+                        <field name="variable"/>
+                        <field name="operator"/>
+                        <field name="max_value"/>
+                    </div>
+                    <label for="list_base_price" string="Sale Price"/>
+                    <div>
+                        <field name="list_base_price" class="oe_inline"/>
+                        +
+                        <field name="list_price" class="oe_inline"/>
+                        *
+                        <field name="variable_factor" class="oe_inline"/>
+                    </div>
+                    <label for="surcharge" string="附加费用"/>
+                    <div>
+                        <field name='surcharge' size="40"/>
+                    </div>
+
+                    <label for="discount" string="折扣"/>
+                    <div>
+                        <field name='discount' size="40"/>
+                    </div>
+
+                    <label for="volumetric_weight_numerator" string="体积重除数"/>
+                    <div class="o_row">
+                        <field name='volumetric_weight_numerator'/>
+                    </div>
+
+                    <field name="standard_price" invisible="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_picking_withcarrier_out_form" model="ir.ui.view">
+        <field name="name">delivery.stock.picking_withcarrier.form.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="priority">8</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//page[@name='extra']" position="inside">
+                    <separator string="Delivery Information"/>
+                    <group>
+                        <group name='carrier_data'>
+                            <field name="carrier_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            <field name="delivery_type" attrs="{'invisible':True}"/>
+                            <label for="carrier_tracking_ref"/>
+                            <div name="tracking">
+                                <field name="carrier_tracking_ref" class="oe_inline"/>
+                                <button type='object' class="fa fa-arrow-right oe_link" name="cancel_shipment"
+                                        string="Cancel"
+                                        attrs="{'invisible':['|','|','|',('carrier_tracking_ref','=',False),('delivery_type','in', ['fixed', 'base_on_rule']),('delivery_type','=',False),('state','not in',('done'))]}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="weight" string="Weight"/>
+                            <div>
+                                <field name="weight" class="oe_inline"/>
+                                <field name="weight_uom_id" nolabel="1" class="oe_inline" style="margin-left:5px"/>
+                            </div>
+                            <field name="shipping_weight"/>
+                            <field name="number_of_packages" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                        </group>
+                    </group>
                 </xpath>
                 <div name="button_box" position="inside">
-                    <button type="object" name="open_website_url" class="oe_stat_button" icon='fa-truck' string="Tracking"
-                         attrs="{'invisible': ['|','|',('carrier_tracking_ref','=',False),('carrier_id', '=', False),('delivery_type','=','grid')]}" />
+                    <button type="object" name="open_website_url" class="oe_stat_button" icon='fa-truck'
+                            string="Tracking"
+                            attrs="{'invisible': ['|','|',('carrier_tracking_ref','=',False),('carrier_id', '=', False),('delivery_type','=','grid')]}"/>
                 </div>
                 <xpath expr="/form/header/button[last()]" position="after">
-                    <button name="send_to_shipper" string="Send to Shipper" type="object" attrs="{'invisible':['|','|','|',('carrier_tracking_ref','!=',False),('delivery_type','in', ['fixed', 'base_on_rule']),('delivery_type','=',False),('state','not in',('done'))]}"/>
+                    <button name="send_to_shipper" string="Send to Shipper" type="object"
+                            attrs="{'invisible':['|','|','|',('carrier_tracking_ref','!=',False),('delivery_type','in', ['fixed', 'base_on_rule']),('delivery_type','=',False),('state','not in',('done'))]}"/>
                 </xpath>
                 <field name="result_package_id" position="before">
-                    <button name="manage_package_type" string="Manage Package Type" type="object" icon="fa-dropbox" groups="stock.group_tracking_lot" attrs="{'invisible': [('result_package_id','=', False)]}"/>
+                    <button name="manage_package_type" string="Manage Package Type" type="object" icon="fa-dropbox"
+                            groups="stock.group_tracking_lot"
+                            attrs="{'invisible': [('result_package_id','=', False)]}"/>
                 </field>
-              </data>
-            </field>
-        </record>
+            </data>
+        </field>
+    </record>
 
 </odoo>
