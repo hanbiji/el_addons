@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acess_bird_system_group_user,bird.system.user,model_bird_system,base.group_user,1,1,1,1
+acess_bird_system_config_settings_group_user,bird.system.config.settings.user,model_bird_system_config_settings,base.group_user,1,1,1,1
+acess_bird_product_group_user,bird.product.user,model_bird_product,base.group_user,1,1,1,1
+acess_bird_rma_product_list,bird.rma.product.list.user,model_bird_rma_product_list,base.group_user,1,1,1,1

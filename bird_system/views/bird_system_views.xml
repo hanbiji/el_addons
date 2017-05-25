@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bird_system_config_settings" model="ir.ui.view">
+        <field name="name">bird system settings</field>
+        <field name="model">bird.system.config.settings</field>
+        <field name="arch" type="xml">
+            <form string="Configure Bird System" class="oe_form_configuration">
+                <header>
+                    <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                    <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                </header>
+                <group>
+                    <field name="bird_system_api_key"/>
+                    <field name="bird_system_company_id"/>
+                    <field name="id" invisible="1"/>
+                </group>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bird_system_setting" model="ir.actions.act_window">
+        <field name="name">Configure Bird</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">bird.system.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'default_id': 1}</field>
+        <field name="target">inline</field>
+    </record>
+
+    <record id="view_bird_system" model="ir.ui.view">
+        <field name="name">bird system</field>
+        <field name="model">bird.system</field>
+        <field name="arch" type="xml">
+            <form string="Get RMA" class="oe_form_configuration">
+                <group>
+                    <field name="rma" readonly="True"/>
+                    <field name="payment_reference"/>
+                    <field name="contact"/>
+                    <field name="country_iso"/>
+                    <field name="product_list"/>
+                    <field name="consignment_id" invisible="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_tree_bird_system" model="ir.ui.view">
+        <field name="name">bird system</field>
+        <field name="model">bird.system</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="rma"/>
+                <field name="payment_reference"/>
+                <field name="contact"/>
+                <field name="country_iso"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bird_product" model="ir.ui.view">
+        <field name="name">view.bird.product</field>
+        <field name="model">bird.product</field>
+        <field name="arch" type="xml">
+            <form string="Product" class="oe_form_configuration">
+                <header>
+                    <button string="Put" type="object" name="put_product" class="oe_highlight"/>
+                    <button string="Get" type="object" name="get_product"/>
+                </header>
+                <group>
+                    <field name="name"/>
+                    <field name="name_customs"/>
+                    <field name="sku"/>
+                    <field name="material"/>
+                    <field name="usage"/>
+                    <field name="price_customs_export"/>
+                    <field name="customs_category_code"/>
+                    <field name="brand"></field>
+                    <field name="product_id" invisible="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_tree_bird_product" model="ir.ui.view">
+        <field name="name">tree.bird.product</field>
+        <field name="model">bird.product</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sku"/>
+                <field name="price_customs_export"/>
+                <field name="customs_category_code"/>
+                <field name="product_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bird_rma_product_list" model="ir.ui.view">
+        <field name="name">view.bird.rma.product.list</field>
+        <field name="model">bird.rma.product.list</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="product"/>
+                    <field name="qty"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="view_tree_bird_rma_product_list" model="ir.ui.view">
+        <field name="name">tree.bird.rma.product.list</field>
+        <field name="model">bird.rma.product.list</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product"/>
+                <field name="qty"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <menuitem id="menu_bird_system_config_settings" action="action_bird_system_setting" name="Config"
+              parent="menu_bird_system" sequence="100"/>
+
+</odoo>

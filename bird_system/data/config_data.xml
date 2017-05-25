@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<odoo noupdate="0">
+	<record model="bird.system.config.settings" id="a73f6d35c22220727ccde809bf8d1fbe">
+		<field name="bird_system_api_key">a73f6d35c22220727ccde809bf8d1fbe</field>
+		<field name="bird_system_company_id">17</field>
+	</record>
+</odoo>

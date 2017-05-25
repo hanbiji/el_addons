@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <act_window id="action_bird_system" name="RMA List" res_model="bird.system" view_mode="tree,form" />
+    <act_window id="action_bird_system_rma" name="Create RMA" res_model="bird.system" view_mode="form" />
+    <act_window id="action_bird_product" name="Product List" res_model="bird.product" view_mode="tree,form" />
+
+    <menuitem id="menu_bird_system" action="action_bird_system" name="Bird System" sequence="10" />
+    <menuitem id="menu_bird_system_rma" action="action_bird_system_rma" parent="menu_bird_system" name="Create RMA" sequence="10" />
+    <menuitem id="menu_bird_product" action="action_bird_product" parent="menu_bird_system" name="Product List" sequence="20" />
+</odoo>
