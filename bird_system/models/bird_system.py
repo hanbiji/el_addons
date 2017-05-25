@@ -4,6 +4,8 @@
 from bdsys_api import BdsysApi
 
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -84,7 +86,7 @@ class BirdProduct(models.Model):
         # 保存数据
         for data in products['data']:
             product = self.search([('sku', '=', data['client_ref'])])
-            if not product:
+            if len(product) == 0:
                 self.create({
                     'name': data['name'],
                     'name_customs': data['name_customs'],
@@ -99,11 +101,10 @@ class BirdProduct(models.Model):
         if totals > (start + limit):
             self.get_product(start + limit)
 
-
-    @api.model
+    @api.multi
     def put_product(self):
         """上传产品"""
-        pass
+        raise ValidationError(u'上传产品')
 
 
 

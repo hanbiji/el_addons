@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_form_amazon_feed" model="ir.ui.view">
+        <field name="name">view.amazon.feed</field>
+        <field name="model">amazon.feed</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="check_feed" type="object" string="更新Feed状态" class="oe_highlight"
+                            attrs="{'invisible': [('status', '=', 'Complete')]}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="amazon_profile"/>
+                        <field name="name"/>
+                        <field name="status"/>
+                    </group>
+                    <group>
+                        <field name="feed_type"/>
+                    </group>
+                    <group>
+                        <field name="submitted_date"/>
+                    </group>
+                    <group>
+                        <field name="message_processed"/>
+                        <field name="message_successful"/>
+                        <field name="message_error"/>
+                        <field name="message_warning"/>
+                    </group>
+                    <group>
+                        <field name="error_info"/>
+                        <field name="feed_xml"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_amazon_feed" model="ir.ui.view">
+        <field name="name">view.tree.amazn.feed</field>
+        <field name="model">amazon.feed</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="amazon_profile"/>
+                <field name="feed_type"/>
+                <field name="name"/>
+                <field name="status"/>
+                <field name="message_processed"/>
+                <field name="message_successful"/>
+                <field name="message_error"/>
+                <field name="message_warning"/>
+                <field name="submitted_date"/>
+            </tree>
+        </field>
+    </record>
+
+
+</odoo>
