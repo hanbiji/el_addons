@@ -92,5 +92,5 @@ class DeliveryCarrier(models.Model):
     def get_volumetric_weight(self, length, width, height, volumetric_weight_numerator):
         '计算体积重'
         return (length * width * height)/volumetric_weight_numerator
-        
-        
+
+

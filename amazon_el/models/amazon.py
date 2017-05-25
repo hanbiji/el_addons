@@ -24,6 +24,7 @@ REGION = [
     ("MX", "MX"), #A1AM78C64UM0Y8
 ]
 
+
 class Amazon(models.Model):
     """Amazon conntent"""
     # access_key = 'AKIAIGLHKPMLI6WEHVYQ'

@@ -41,7 +41,7 @@ class HouzzOrderImport(models.TransientModel):
         tree = ET.ElementTree(ET.fromstring(response))
         orders = tree.iter(tag='Order')
         self.save_order(orders, self.houzz.id)
-        return True
+        return {'type': 'ir.actions.act_window_close'}
 
     @api.model
     def auto_import_order(self):
@@ -245,3 +245,34 @@ class HouzzOrderImport(models.TransientModel):
                     })
 
         return True
+
+    @api.model
+    def ship_order(self):
+        """上传物流单号"""
+        houzzs = self.env['houzz.config'].search([])
+        for houzz in houzzs:
+            # print houzz.houzz_token
+            houzz_model = HouzzApi(token=houzz.houzz_token, user_name=houzz.houzz_user_name, app_name=houzz.name)
+            orders = self.env['sale.order'].search([('houzz_config_id', '=', houzz.id), ('houzz_order_status', '=', 'Charged')])
+            for order in orders:
+                stock_pickings = self.env['stock.picking'].search([('origin', '=', order.name)])
+                carriers = []
+                for picking in stock_pickings:
+                    for track in picking.carrier_tracking_ref:
+                        carriers.append({
+                            'ShippingMethod': track.carrier_id.houzz_carrier_code,
+                            'TrackingNumber': track.tracking_ref,
+                        })
+                if carriers:
+                    track_numbers = ','.join([i['TrackingNumber'] for i in carriers])
+                    shiped = houzz_model.ship_order(order_id=order.client_order_ref,
+                                                    shipping_method=carriers[0]['ShippingMethod'],
+                                                    tracking_number=track_numbers)
+                    if shiped:
+                        # 更新订单状态为Shipped
+                        order.update({'houzz_order_status': 'Shipped'})
+
+        return True
+
+
+

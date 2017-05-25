@@ -5,7 +5,10 @@ from ..walmart import walmart
 
 from odoo import api, fields, models, _
 from datetime import datetime, timedelta
-from odoo.exceptions import AccessDenied
+import time
+import json
+from math import ceil
+from odoo.exceptions import ValidationError
 import logging
 import hashlib
 _logger = logging.getLogger(__name__)
@@ -52,7 +55,7 @@ class WalmartElOrderImport(models.TransientModel):
         }
 
         # return dict2
-        return True
+        return {'type': 'ir.actions.act_window_close'}
 
     @api.model
     def create_product(self, sku):
@@ -129,10 +132,6 @@ class WalmartElOrderImport(models.TransientModel):
             OrderId = order['order_id']
             CustomerName = order['name']
             Email = order['customer_email']
-            if Email:
-                m = hashlib.md5()
-                m.update(Email)
-                Email = m.hexdigest()
 
             Address = order['address1']
             Address1 = order['address2']
@@ -171,7 +170,7 @@ class WalmartElOrderImport(models.TransientModel):
                     'type': 'delivery',
                     'parent_id': customer_id,
                     'name': CustomerName,
-                    'email': False,
+                    'email': Email,
                     'phone': Phone,
                     'street': Address,
                     'street2': Address1,
@@ -187,7 +186,7 @@ class WalmartElOrderImport(models.TransientModel):
                 # 新建会员
                 customer = {
                     'name': CustomerName,
-                    'email': False,
+                    'email': Email,
                     'phone': Phone,
                     'street': Address,
                     'street2': Address1,
@@ -242,7 +241,8 @@ class WalmartElOrderImport(models.TransientModel):
                         'name': product[0]['name'],
                         'product_uom': product[0]['uom_id'][0],
                         'product_uom_qty': product_uom_qty,
-                        'price_unit': price_unit
+                        'price_unit': price_unit,
+                        'walmart_line_number': item['line_number']
                     })
         return True
 
@@ -308,3 +308,62 @@ class WalmartElOrderImport(models.TransientModel):
                 'fulfillment': fulfillment
             })
         return bulks
+
+    @api.model
+    def upload_track(self):
+        """上传物流单号"""
+        for walmart_config in self.env['walmart.el'].search([]):
+            walmart_model = walmart.WalmartOrder(walmart_config.consumer_id, walmart_config.private_key,
+                                                 walmart_config.channel_type)
+            orders = self.env['sale.order'].search(
+                [('walmart_id', '=', walmart_config.id), ('walmart_order_status', '=', 'Acknowledged')])
+
+            for order in orders:
+                stock_pickings = self.env['stock.picking'].search([('origin', '=', order.name)])
+                carriers = []
+                for picking in stock_pickings:
+                    for track in picking.carrier_tracking_ref:
+                        carriers.append({
+                            'CarrierCode': track.carrier_id.walmart_carrier_code,
+                            'ShipperTrackingNumber': track.tracking_ref,
+                        })
+                if carriers:
+                    order_lines = []
+                    track_num = len(carriers)
+                    line_num = len(order.order_line)
+                    step = int(ceil(float(line_num)/float(track_num)))
+                    track_i = 0
+                    for i in range(0, line_num, step):
+                        for order_line in order.order_line[i:i+step]:
+                            if order_line.walmart_line_number:
+                                order_lines.append({
+                                    'lineNumber': order_line.walmart_line_number,
+                                    'orderLineStatuses': {
+                                        'orderLineStatus': [{
+                                            'status': 'Shipped',
+                                            'statusQuantity': {
+                                                'unitOfMeasurement': 'EA',
+                                                'amount': int(order_line.product_uom_qty)
+                                            },
+                                            'trackingInfo': {
+                                                'shipDateTime': int(time.time()),
+                                                'carrierName': {
+                                                    'carrier': carriers[track_i]['CarrierCode']
+                                                },
+                                                'methodCode': 'Standard',
+                                                'trackingNumber': carriers[track_i]['ShipperTrackingNumber']
+                                            }
+                                        }]
+                                    }
+                                })
+                        track_i += 1
+
+                    request_body = json.dumps({'orderShipment': {'orderLines': {'orderLine': order_lines}}})
+                    print request_body
+                    repesone = walmart_model.shipping(order.client_order_ref, request_body)
+                    if repesone['code'] == 'success':
+                        order.update({'walmart_order_status': 'Shipped'})
+
+        return True
+
+

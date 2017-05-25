@@ -9,6 +9,7 @@
                 <field name="amazon_id" attrs="{'invisible':[('amazon_id', '=', False), ('state', '!=', 'draft')]}"/>
                 <field name="fulfillment_channel"
                        attrs="{'invisible':[('amazon_id', '=', False), ('state', '!=', 'draft')]}"/>
+                <field name="amazon_order_status" attrs="{'invisible':[('amazon_id', '=', False), ('state', '!=', 'draft')]}" />
             </field>
         </field>
     </record>

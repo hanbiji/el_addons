@@ -10,6 +10,7 @@ from urllib import urlencode
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
+
 try:
     import xml.etree.cElementTree as ET
 except ImportError:
@@ -20,8 +21,10 @@ __all__ = [
     'WalmartOrder'
 ]
 
+
 class Walmart(object):
     """Walmart api"""
+
     def __init__(self, consumer_id, private_key, channel_type, accept='application/xml'):
         self.base_url = 'https://marketplace.walmartapis.com/v2/%s'
         self.consumer_id = consumer_id
@@ -55,9 +58,11 @@ class Walmart(object):
             'WM_QOS.CORRELATION_ID': str(uuid4()),
         }
 
-    def send_request(self, uri, method, params=None, body=None, files=None, base_url=None, next_cursor=None, accept=None, content_type=None):
+    def send_request(self, uri, method, params=None, body=None, files=None, base_url=None, next_cursor=None,
+                     accept=None, content_type=None):
         if accept:
             self.session.headers['Accept'] = accept
+
         if content_type:
             self.session.headers['Content-Type'] = content_type
         else:
@@ -222,11 +227,13 @@ class WalmartOrder(Walmart):
                         product_amount += amount
 
                     status = line.find('ns3:orderLineStatuses/ns3:orderLineStatus/ns3:status', ns).text
+                    line_number = line.find('ns3:lineNumber', ns).text
                     order_item = {
                         'sku': sku,
                         'qty': qty,
                         'price': product_amount,
-                        'currency': currency
+                        'currency': currency,
+                        'line_number': line_number
                     }
                     order_items.append(order_item)
                 order_info['status'] = status
@@ -238,7 +245,8 @@ class WalmartOrder(Walmart):
     def get_released(self, start_date, limit=None, next_cursor=None):
         """Get Released Order"""
         params = {'createdStartDate': start_date, 'limit': limit}
-        r = self.send_request(uri='orders/released', method='GET', params=params, base_url=WalmartOrder.base_url, next_cursor=next_cursor)
+        r = self.send_request(uri='orders/released', method='GET', params=params, base_url=WalmartOrder.base_url,
+                              next_cursor=next_cursor)
         return self.analyze_order(r.text)
 
     def get_all(self, start_date, status='Created', limit=200, next_cursor=None, **kwargs):
@@ -248,20 +256,34 @@ class WalmartOrder(Walmart):
             'status': status,
             'limit': limit
         }
-        r = self.send_request(uri='orders', method='GET', params=params, base_url=WalmartOrder.base_url, next_cursor=next_cursor)
+        r = self.send_request(uri='orders', method='GET', params=params, base_url=WalmartOrder.base_url,
+                              next_cursor=next_cursor)
         return self.analyze_order(r.text)
 
     def get_one(self, order_id):
         """Get one order"""
-        r = self.send_request(uri='orders', method='GET', params={'purchaseOrderId': order_id}, base_url=WalmartOrder.base_url)
+        r = self.send_request(uri='orders', method='GET', params={'purchaseOrderId': order_id},
+                              base_url=WalmartOrder.base_url)
         return self.analyze_order(r.text)
 
     def acknowledge(self, order_id):
         """Acknowledging orders"""
-        self.session.headers['Content-Type'] = 'application/json'
-        r = self.send_request(uri='orders/%s/acknowledge' % order_id, method='POST', accept='application/json')
+        r = self.send_request(uri='orders/%s/acknowledge' % order_id, method='POST', accept='application/json',
+                              content_type='application/json')
         order = json.loads(r.text)
         if 'errors' in order.keys():
+            return {'code': 'error', 'error_code': order['errors']['error'][0]['code']}
+        else:
+            return {'code': 'success'}
+
+    def shipping(self, order_id, body):
+        """Shipping notifications/updates"""
+        r = self.send_request(uri='orders/%s/shipping' % order_id, method='POST', body=body, accept='application/json',
+                              content_type='application/json')
+
+        print r.text
+        order = json.loads(r.text)
+        if 'errors' in order.keys() or 'error' in order.keys():
             return {'code': 'error', 'error_code': order['errors']['error'][0]['code']}
         else:
             return {'code': 'success'}
@@ -337,7 +359,8 @@ class WalmartInventory(Walmart):
 
         max_items = 2000
         if len(bulks) > max_items:
-            return {'code': 'error', 'error_desc': 'Up to 2,000 items can have their inventory updated in bulk in any one feed.'}
+            return {'code': 'error',
+                    'error_desc': 'Up to 2,000 items can have their inventory updated in bulk in any one feed.'}
 
         inventory_tpl = """
             <inventory>
@@ -349,14 +372,16 @@ class WalmartInventory(Walmart):
                 <fulfillmentLagTime>{fulfillment}</fulfillmentLagTime>
             </inventory>
             """
-        bulk_list = [inventory_tpl.format(sku=bulk['sku'], qty=bulk['qty'], fulfillment=bulk['fulfillment']) for bulk in bulks]
+        bulk_list = [inventory_tpl.format(sku=bulk['sku'], qty=bulk['qty'], fulfillment=bulk['fulfillment']) for bulk in
+                     bulks]
         bulk_data = """<?xml version="1.0" encoding="UTF-8"?>
             <InventoryFeed xmlns="http://walmart.com/">
                 <InventoryHeader>
                     <version>1.4</version>
                 </InventoryHeader>""" + ''.join(bulk_list) + '</InventoryFeed>'
 
-        response = self.send_request(uri='feeds?feedType=inventory', method='POST', files={'file': bulk_data}, content_type='multipart/form-data;')
+        response = self.send_request(uri='feeds?feedType=inventory', method='POST', files={'file': bulk_data},
+                                     content_type='multipart/form-data;')
         ns = {
             'ns2': 'http://walmart.com/'
         }

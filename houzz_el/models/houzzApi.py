@@ -64,6 +64,7 @@ class  HouzzApi(object):
         """解析订单操作返回的XML"""
         tree = ET.ElementTree(ET.fromstring(response))
         if tree.find('Ack').text == 'Error':
+            # print response
             return False
         else:
             return True

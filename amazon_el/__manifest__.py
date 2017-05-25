@@ -10,6 +10,7 @@
         'views/amazon_view.xml',
         'views/sale_view.xml',
         'views/sale_order_tree.xml',
-        'wizard/amazon_order_import_view.xml'
+        'wizard/amazon_order_import_view.xml',
+        'views/feed_view.xml'
     ]
 }

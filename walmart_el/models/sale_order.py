@@ -13,11 +13,19 @@ class SaleOrder(models.Model):
     client_order_ref = fields.Char(required=True, copy=True)
 
     walmart_order_status = fields.Selection([
+        ('Created', 'Created'),
         ('Ordered', 'Ordered'),
         ('Shipped', 'Shipped'),
         ('Acknowledged', 'Acknowledged'),
         ('Cancelled', 'Cancelled')
     ], string='Walmart Order Status')
+
+
+class SaleOrderLine(models.Model):
+    """sale.order.line"""
+    _inherit = 'sale.order.line'
+
+    walmart_line_number = fields.Char('Line Number')
 
 
 

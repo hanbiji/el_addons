@@ -6,6 +6,7 @@ from odoo.exceptions import UserError
 
 import odoo.addons.decimal_precision as dp
 
+
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
     

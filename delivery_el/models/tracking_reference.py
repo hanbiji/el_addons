@@ -6,13 +6,12 @@ from odoo.exceptions import UserError, ValidationError
 import logging
 _logger = logging.getLogger(__name__)
 
-import odoo.addons.decimal_precision as dp
-
 
 class TrackingReference(models.Model):
     """订单物流跟踪编号"""
     _name = 'tracking.reference'
     _description = "Tracking Reference"
+    _rec_name = 'tracking_ref'
     
     stock_picking_id = fields.Many2one('stock.picking', string="发货单", required=True)
     tracking_ref = fields.Char(string='Tracking Reference', copy=False, required=True)
@@ -24,13 +23,14 @@ class TrackingReference(models.Model):
     total_cost = fields.Float('Total Cost')
     pay = fields.Boolean('Pay')
     pay_date = fields.Date('Pay Date')
-
+    upload_store = fields.Boolean('Upload Store', default=False)
     _sql_constraints = [
         ('ref_uniq', 'unique(tracking_ref, carrier_id)', 'Reference must be unique per picking!'),
     ]
     
     @api.model
     def load(self, fields, data):
+
         """批量导入物流单号"""
 
         not_id = False
