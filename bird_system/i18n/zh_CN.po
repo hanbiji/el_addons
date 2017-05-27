@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-24 07:25+0000\n"
-"PO-Revision-Date: 2017-05-24 15:29+0800\n"
+"POT-Creation-Date: 2017-05-26 07:30+0000\n"
+"PO-Revision-Date: 2017-05-26 15:33+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
+"Language: zh\n"
 "X-Generator: Poedit 2.0.2\n"
 
 #. module: bird_system
@@ -43,6 +43,11 @@ msgid "Brand"
 msgstr "品牌"
 
 #. module: bird_system
+#: selection:bird.system,status:0
+msgid "CANCELLED"
+msgstr "已取消"
+
+#. module: bird_system
 #: model:ir.ui.view,arch_db:bird_system.view_bird_system_config_settings
 msgid "Cancel"
 msgstr "取消"
@@ -53,6 +58,7 @@ msgid "Company ID"
 msgstr "企业ID"
 
 #. module: bird_system
+#: model:ir.ui.menu,name:bird_system.menu_bird_system_config
 #: model:ir.ui.menu,name:bird_system.menu_bird_system_config_settings
 msgid "Config"
 msgstr "配置"
@@ -110,12 +116,27 @@ msgid "Customs Category"
 msgstr "报关分类"
 
 #. module: bird_system
+#: model:ir.model.fields,field_description:bird_system.field_bird_product_customs_category_id
+msgid "Customs Category Id"
+msgstr "海关分类ID"
+
+#. module: bird_system
+#: selection:bird.system,status:0
+msgid "DELETED"
+msgstr "已删除"
+
+#. module: bird_system
 #: model:ir.model.fields,field_description:bird_system.field_bird_product_display_name
 #: model:ir.model.fields,field_description:bird_system.field_bird_rma_product_list_display_name
 #: model:ir.model.fields,field_description:bird_system.field_bird_system_config_settings_display_name
 #: model:ir.model.fields,field_description:bird_system.field_bird_system_display_name
 msgid "Display Name"
 msgstr "显示名称"
+
+#. module: bird_system
+#: selection:bird.system,status:0
+msgid "FINISHED"
+msgstr "已完成"
 
 #. module: bird_system
 #: model:ir.ui.view,arch_db:bird_system.view_bird_product
@@ -175,12 +196,38 @@ msgid "Order Id"
 msgstr "订单编号"
 
 #. module: bird_system
+#: model:ir.ui.menu,name:bird_system.menu_bird_orders
+msgid "Orders"
+msgstr "订单管理"
+
+#. module: bird_system
+#: selection:bird.system,status:0
+msgid "PENDING"
+msgstr "待处理"
+
+#. module: bird_system
+#: selection:bird.system,status:0
+msgid "PREPARING"
+msgstr "准备中"
+
+#. module: bird_system
+#: selection:bird.system,status:0
+msgid "PROBLEM"
+msgstr "有问题"
+
+#. module: bird_system
+#: selection:bird.system,status:0
+msgid "PROCESSING"
+msgstr "处理中"
+
+#. module: bird_system
 #: model:ir.model.fields,field_description:bird_system.field_bird_product_price_customs_export
 msgid "Price Customs"
 msgstr "报送价格"
 
 #. module: bird_system
 #: model:ir.model.fields,field_description:bird_system.field_bird_rma_product_list_product
+#: model:ir.ui.menu,name:bird_system.menu_bird_product
 #: model:ir.ui.view,arch_db:bird_system.view_bird_product
 msgid "Product"
 msgstr "产品"
@@ -193,7 +240,7 @@ msgstr "飞鸟产品ID"
 #. module: bird_system
 #: model:ir.actions.act_window,name:bird_system.action_bird_product
 #: model:ir.model.fields,field_description:bird_system.field_bird_system_product_list
-#: model:ir.ui.menu,name:bird_system.menu_bird_product
+#: model:ir.ui.menu,name:bird_system.menu_bird_product_list
 msgid "Product List"
 msgstr "产品列表"
 
@@ -208,12 +255,23 @@ msgid "Qty"
 msgstr "退货数量"
 
 #. module: bird_system
+#: selection:bird.system,status:0
+msgid "RECEIVED"
+msgstr "已收货"
+
+#. module: bird_system
+#: selection:bird.system,status:0
+msgid "REVIEWING"
+msgstr "审核中"
+
+#. module: bird_system
 #: model:ir.model.fields,field_description:bird_system.field_bird_system_rma
 msgid "RMA"
 msgstr "RMA"
 
 #. module: bird_system
 #: model:ir.actions.act_window,name:bird_system.action_bird_system
+#: model:ir.ui.menu,name:bird_system.menu_bird_system_rma_list
 msgid "RMA List"
 msgstr "RMA 列表"
 
@@ -231,6 +289,21 @@ msgstr "RMA ID"
 #: model:ir.model.fields,field_description:bird_system.field_bird_product_sku
 msgid "SKU"
 msgstr "SKU"
+
+#. module: bird_system
+#: model:ir.model.fields,field_description:bird_system.field_bird_system_status
+msgid "Status"
+msgstr "状态"
+
+#. module: bird_system
+#: model:ir.ui.view,arch_db:bird_system.view_bird_system
+msgid "Update Status"
+msgstr "同步状态"
+
+#. module: bird_system
+#: model:ir.model.fields,field_description:bird_system.field_bird_product_weight
+msgid "Weight"
+msgstr "重量"
 
 #. module: bird_system
 #: model:ir.model,name:bird_system.model_bird_system

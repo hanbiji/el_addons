@@ -33,6 +33,9 @@
         <field name="model">bird.system</field>
         <field name="arch" type="xml">
             <form string="Get RMA" class="oe_form_configuration">
+                <header>
+                    <button string="Update Status" type="object" name="update_status" class="oe_highlight"/>
+                </header>
                 <group>
                     <field name="rma" readonly="True"/>
                     <field name="payment_reference"/>
@@ -40,6 +43,7 @@
                     <field name="country_iso"/>
                     <field name="product_list"/>
                     <field name="consignment_id" invisible="1"/>
+                    <field name="status" readonly="True"/>
                 </group>
             </form>
         </field>
@@ -53,6 +57,7 @@
                 <field name="payment_reference"/>
                 <field name="contact"/>
                 <field name="country_iso"/>
+                <field name="status"/>
             </tree>
         </field>
     </record>
@@ -73,8 +78,10 @@
                     <field name="material"/>
                     <field name="usage"/>
                     <field name="price_customs_export"/>
+                    <field name="customs_category_id"/>
                     <field name="customs_category_code"/>
                     <field name="brand"></field>
+                    <field name="weight"/>
                     <field name="product_id" invisible="1"/>
                 </group>
             </form>
@@ -117,7 +124,9 @@
     </record>
 
 
-    <menuitem id="menu_bird_system_config_settings" action="action_bird_system_setting" name="Config"
+    <menuitem id="menu_bird_system_config" name="Config"
               parent="menu_bird_system" sequence="100"/>
+    <menuitem id="menu_bird_system_config_settings" action="action_bird_system_setting" name="Config"
+              parent="menu_bird_system_config" sequence="1"/>
 
 </odoo>

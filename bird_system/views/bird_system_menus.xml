@@ -5,6 +5,13 @@
     <act_window id="action_bird_product" name="Product List" res_model="bird.product" view_mode="tree,form" />
 
     <menuitem id="menu_bird_system" action="action_bird_system" name="Bird System" sequence="10" />
-    <menuitem id="menu_bird_system_rma" action="action_bird_system_rma" parent="menu_bird_system" name="Create RMA" sequence="10" />
-    <menuitem id="menu_bird_product" action="action_bird_product" parent="menu_bird_system" name="Product List" sequence="20" />
+
+    <menuitem id="menu_bird_orders" name="Orders" parent="menu_bird_system" sequence="1"/>
+    <menuitem id="menu_bird_system_rma_list" action="action_bird_system" parent="menu_bird_orders" name="RMA List" sequence="9" />
+    <menuitem id="menu_bird_system_rma" action="action_bird_system_rma" parent="menu_bird_orders" name="Create RMA" sequence="10" />
+
+    <menuitem id="menu_bird_product" parent="menu_bird_system" name="Product" sequence="20" />
+    <menuitem id="menu_bird_product_list" action="action_bird_product" parent="menu_bird_product" name="Product List" sequence="1" />
+
+
 </odoo>

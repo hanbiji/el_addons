@@ -50,7 +50,13 @@ class BdsysApi(object):
         }
         response = self.session.post(url, data=body)
         # r = json.load(response.text)
-        return json.loads(response.text)
+        return json.loads(response.text.encode('utf-8'))
+
+    def get_rma_info(self, consignment_id):
+        """Get Rma By Id"""
+        url = 'http://www.birdsystem.com/client/Consignment/?id=%s&type=RETURN' % consignment_id
+        response = self.session.get(url)
+        return json.loads(response.text.encode('utf-8'))
 
     def add_product(self, consignment_id, product_id, quantity):
         """
@@ -68,13 +74,59 @@ class BdsysApi(object):
             'quantity': quantity
         }
         response = self.session.post(url, data=body)
-        return json.loads(response.text)
+        return json.loads(response.text.encode('utf-8'))
 
     def get_product(self, start=0, limit=200):
         """拉取所有产品"""
         url = 'http://www.birdsystem.com/client/Product/?start=%s&limit=%s' % (start, limit)
         response = self.session.get(url)
-        return json.loads(response.text)
+        return json.loads(response.text.encode('utf-8'))
+
+    def get_product_info(self, product_id):
+        """获取产品详细信息"""
+        url = 'http://www.birdsystem.com/client/Product/?id=%s' % product_id
+        response = self.session.get(url)
+        return json.loads(response.text.encode('utf-8'))
+
+    def create_product(self, body):
+        """添加产品
+        http://www.birdsystem.com/client/Product/
+        id:
+        client_id:
+        name:test
+        name_customs:test
+        material:test
+        usage:test
+        brand:test
+        customs_category_id:591
+        customs_category_code:GB8529905000
+        product_product_customs_property[]:0
+        product_product_customs_property[]:0
+        product_product_customs_property[]:0
+        product_product_customs_property[]:0
+        product_product_customs_property[]:0
+        product_product_customs_property[]:0
+        product_product_customs_property[]:0
+        product_product_customs_property[]:0
+        product_product_customs_property[]:0
+        product_product_customs_property[]:0
+        note:
+        client_ref:
+        commodity_code:
+        company_product-is_shared_internal:0
+        description:
+        company_product-price:
+        company_product-cost:
+        price_customs_import:
+        price_customs_export:20
+        company_product-low_stock_level:
+        inventory_time:
+        status:PREPARING
+        :return: 
+        """
+        url = 'http://www.birdsystem.com/client/Product/'
+        response = self.session.post(url, data=body)
+        return json.loads(response.text.encode('utf-8'))
 
 
 

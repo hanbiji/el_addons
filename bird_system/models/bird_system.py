@@ -20,10 +20,20 @@ class BirdSystem(models.Model):
     country_iso = fields.Many2one('res.country', string='Country', required=True)
     consignment_id = fields.Char('Consignment id')
     product_list = fields.One2many('bird.rma.product.list', 'rma_id', string='Product List', required=True)
+    status = fields.Selection([
+        ('PREPARING', 'PREPARING'),
+        ('RECEIVED', 'RECEIVED'),
+        ('PENDING', 'PENDING'),
+        ('PROCESSING', 'PROCESSING'),
+        ('FINISHED', 'FINISHED'),
+        ('PROBLEM', 'PROBLEM'),
+        ('CANCELLED', 'CANCELLED'),
+        ('REVIEWING', 'REVIEWING'),
+        ('DELETED', 'DELETED')
+    ])
 
     @api.model
     def create(self, vals):
-        # print vals
         bdsys_config = self.env['bird.system.config.settings'].browse(1)
         bdsys = BdsysApi(bdsys_config.bird_system_api_key, bdsys_config.bird_system_company_id)
         country = self.env['res.country'].browse(vals['country_iso'])
@@ -47,6 +57,21 @@ class BirdSystem(models.Model):
     @api.multi
     def unlink(self):
         """禁止删除"""
+        return True
+
+    @api.multi
+    def update_status(self):
+        """Update Status"""
+        bdsys_config = self.env['bird.system.config.settings'].browse(1)
+        bdsys = BdsysApi(bdsys_config.bird_system_api_key, bdsys_config.bird_system_company_id)
+        for rma in self:
+            rma_info = bdsys.get_rma_info(rma.consignment_id)
+            if rma_info['success']:
+                rma.update({
+                    'status': rma_info['data'][0]['status']
+                })
+            else:
+                raise ValidationError(rma_info['message'])
         return True
 
 
@@ -73,8 +98,10 @@ class BirdProduct(models.Model):
     material = fields.Char('material', required=True)
     usage = fields.Char('usage', default='lighting', required=True)
     price_customs_export = fields.Float(string='Price Customs', default=10.00, required=True)
-    customs_category_code = fields.Char(string='Customs Category', default='GB9405100000', required=True)
+    customs_category_id = fields.Char('Customs Category Id', default='1043')
+    customs_category_code = fields.Char(string='Customs Category', default='GB8539319100', required=True)
     brand = fields.Char('Brand', default='Null', required=True)
+    weight = fields.Float(required=True)
 
     @api.model
     def get_product(self, start=0, limit=200):
@@ -87,24 +114,63 @@ class BirdProduct(models.Model):
         for data in products['data']:
             product = self.search([('sku', '=', data['client_ref'])])
             if len(product) == 0:
+                product_info = bdsys.get_product_info(data['id'])
                 self.create({
                     'name': data['name'],
                     'name_customs': data['name_customs'],
                     'sku': data['client_ref'],
                     'product_id': data['id'],
-                    'material': data['material'],
-                    'usage': data['usage'],
+                    'material': product_info['data'][0]['material'],
+                    'usage': product_info['data'][0]['usage'],
                     'price_customs_export': data['price_customs_export'],
                     'customs_category_code': data['customs_category_code'],
                     'brand': data['brand']
                 })
+            else:
+                product_info = bdsys.get_product_info(data['id'])
+                for r in product:
+                    # print product_info['data'][0]
+                    r.update({
+                        'material': product_info['data'][0]['material'],
+                        'usage': product_info['data'][0]['usage']
+                    })
+
         if totals > (start + limit):
             self.get_product(start + limit)
+        else:
+            return True
 
     @api.multi
     def put_product(self):
         """上传产品"""
-        raise ValidationError(u'上传产品')
+        bdsys_config = self.env['bird.system.config.settings'].browse(1)
+        bdsys = BdsysApi(bdsys_config.bird_system_api_key, bdsys_config.bird_system_company_id)
+        for product in self:
+            body = {
+                'id': product.product_id,
+                'name': product.name,
+                'name_customs': product.name_customs,
+                'material': product.material,
+                'usage': product.usage,
+                'brand': 'PU',
+                'client_ref': product.sku,
+                'customs_category_id': 1043,
+                'customs_category_code': 'GB8539319100',
+                'price_customs_export': product.price_customs_export,
+                'status': 'PREPARING',
+                'weight': product.weight,
+                'product_product_customs_property[]': 0
+            }
+            add = bdsys.create_product(body)
+            _logger.info(add)
+            if add['success']:
+                product.update({
+                    'product_id': add['data']['id']
+                })
+            else:
+                raise ValidationError(add['message'])
+
+        return True
 
 
 
