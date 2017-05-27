@@ -1,15 +1,26 @@
 <?xml version="1.0"?>
 <odoo>
-
 	<act_window id="action_houzz_config" name="Houzz Profile" res_model="houzz.config" view_mode="tree,form" />
-	<act_window id="action_houzz_import" target="new" name="HOUZZ 订单导入" res_model="houzz.order.import" view_mode="form" multi="True" />
-	<act_window id="action_houzz_stock" target="new" name="HOUZZ 库存同步" res_model="houzz.stock" view_mode="form" multi="True" />
+	<act_window id="action_houzz_import" target="new" name="Order Import" res_model="houzz.order.import" view_mode="form" multi="True" />
+	<act_window id="action_houzz_stock" target="new" name="Update Stock" res_model="houzz.stock" view_mode="form" multi="True" />
 	<act_window id="houzz_order_list" view_id="view_order_tree_houzz" name="HOUZZ Orders" context="" domain="[('houzz_config_id', '!=', None)]" res_model="sale.order" view_mode="tree,form" />
-	<!-- App menu items -->
-	<menuitem id="menu_houzz_config" action="houzz_order_list" name="HOUZZ" sequence="10" />
-	<menuitem id="menu_houzz_order_tree" action="houzz_order_list" name="订单管理" parent="menu_houzz_config" sequence="8" />
-	<menuitem id="menu_houzz_config_tree" action="action_houzz_config" name="HOUZZ 配置" parent="menu_houzz_config" sequence="9" />
-	<menuitem id="houzz_import" action="action_houzz_import" name="HOUZZ 订单导入" parent="menu_houzz_config" sequence="10" />
-	<menuitem id="houzz_update_stock" action="action_houzz_stock" name="HOUZZ 库存同步" parent="menu_houzz_config" sequence="11" />
+	<act_window id="action_houzz_payments" name="Payments" res_model="houzz.payments" view_mode="tree,form" />
+	<act_window id="action_houzz_payments_import" target="new" name="Payments Import" res_model="houzz.payments.import" view_mode="form" multi="True" />
 
+	<!-- App menu items -->
+	<menuitem id="menu_houzz" action="houzz_order_list" name="HOUZZ" sequence="10" />
+
+	<menuitem id="menu_houzz_order_tree" name="Order Manage" parent="menu_houzz" sequence="8" />
+	<menuitem id="menu_houzz_order_list" action="houzz_order_list" name="Order List" parent="menu_houzz_order_tree" sequence="10" />
+	<menuitem id="houzz_import" action="action_houzz_import" name="Order Import" parent="menu_houzz_order_tree" sequence="20" />
+
+	<menuitem id="houzz_stock" name="Stock" parent="menu_houzz" sequence="11" />
+	<menuitem id="houzz_update_stock" action="action_houzz_stock" name="Update Stock" parent="houzz_stock" sequence="40" />
+
+	<menuitem id="houzz_payments" name="Payments" parent="menu_houzz" sequence="12"/>
+	<menuitem id="houzz_payments_list" action="action_houzz_payments" name="List" parent="houzz_payments" sequence="13"/>
+	<menuitem id="houzz_payments_import" action="action_houzz_payments_import" name="Import" parent="houzz_payments" sequence="14"/>
+
+	<menuitem id="menu_houzz_config" name="Configuration" parent="menu_houzz" sequence="20" />
+	<menuitem id="menu_houzz_config_setting" action="action_houzz_config" name="Configuration" parent="menu_houzz_config" sequence="30" />
 </odoo>

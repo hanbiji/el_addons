@@ -2,40 +2,79 @@
 <odoo>
 
     <record id="view_form_houzz_config" model="ir.ui.view">
-		<field name="name">Create Houzz Profile</field>
-		<field name="model">houzz.config</field>
-		<field name="arch" type="xml">
-			<form>
+        <field name="name">Create Houzz Profile</field>
+        <field name="model">houzz.config</field>
+        <field name="arch" type="xml">
+            <form>
                 <header>
-						<button name="do_import_order" type="object" string="导入订单" class="oe_highlight" />
-					</header>
+                    <button name="do_import_order" type="object" string="导入订单" class="oe_highlight"/>
+                </header>
                 <sheet>
                     <div>
-                        <label for="name" string="APP ID" />
-                        <field name="name" placeholder="APP ID" />
+                        <label for="name" string="APP ID"/>
+                        <field name="name" placeholder="APP ID"/>
                     </div>
                     <div>
                         <label for="houzz_user_name" string="帐号"/>
-                        <field name="houzz_user_name" placeholder="输入帐号" />
+                        <field name="houzz_user_name" placeholder="输入帐号"/>
                     </div>
                     <div>
-                        <label for="houzz_token" string="Token" />
-                        <field name="houzz_token" placeholder="输入Token" />
+                        <label for="houzz_token" string="Token"/>
+                        <field name="houzz_token" placeholder="输入Token"/>
                     </div>
                 </sheet>
-
-			</form>
-		</field>
-	</record>
+            </form>
+        </field>
+    </record>
 
     <record id="view_tree_houzz_config" model="ir.ui.view">
         <field name="name">Houzz Profile</field>
-		<field name="model">houzz.config</field>
+        <field name="model">houzz.config</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
                 <field name="houzz_user_name"/>
                 <field name="houzz_token"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_houzz_payments" model="ir.ui.view">
+        <field name="name">view.houzz.payments</field>
+        <field name="model">houzz.payments</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="houzz_config_id"/>
+                    <field name="name"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="sales" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="shipping" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="commission" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="deposit_amount" widget="monetary"/>
+                    <field name="currency_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_houzz_payments" model="ir.ui.view">
+        <field name="name">view.tree.houzz.payments</field>
+        <field name="model">houzz.payments</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="houzz_config_id"/>
+                <field name="name"/>
+                <field name="from_date"/>
+                <field name="to_date"/>
+                <field name="sales" sum="Total Sales" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="shipping" sum="Total Shipping" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="tax" sum="Total Tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="commission" sum="Total Commission" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="deposit_amount" sum="Total Deposit Amount" widget="monetary"/>
+                <field name="currency_id" invisible="True"/>
             </tree>
         </field>
     </record>

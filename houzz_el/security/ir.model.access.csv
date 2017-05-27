@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acess_houzz_config_group_user,houzz.config.user,model_houzz_config,base.group_user,1,1,1,1
+acess_houzz_order_import_group_user,houzz.order.import.user,model_houzz_order_import,base.group_user,1,1,1,1
+acess_houzz_stock,houzz.stock.user,model_houzz_stock,base.group_user,1,1,1,1
+acess_houzz_payments,houzz.payments.user,model_houzz_payments,base.group_user,1,1,1,1
+acess_houzz_payments_import,houzz.payments.import.user,model_houzz_payments_import,base.group_user,1,1,1,1

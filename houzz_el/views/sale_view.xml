@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button name="houzz_process_order" type="object" string="Houzz Process" attrs="{'invisible': [('houzz_order_status', '!=', 'Placed')]}"/>
-                <button name="houzz_charge_order" type="object" string="Houzz 收钱" attrs="{'invisible': [('houzz_order_status', '!=', 'Processing')]}"/>
+                <button name="houzz_charge_order" type="object" string="Houzz Charge" attrs="{'invisible': [('houzz_order_status', '!=', 'Processing')]}"/>
             </xpath>
 			<field name="partner_id" position="after">
                 <field name="houzz_config_id" attrs="{'invisible':[('houzz_config_id', '=', False), ('state', '!=', 'draft')]}" />

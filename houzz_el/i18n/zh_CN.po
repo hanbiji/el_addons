@@ -1,0 +1,418 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* houzz_el
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-27 08:54+0000\n"
+"PO-Revision-Date: 2017-05-27 17:00+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.2\n"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_form_houzz_config
+msgid "APP ID"
+msgstr "APP ID"
+
+#. module: houzz_el
+#: selection:houzz.order.import,order_status:0
+msgid "Active"
+msgstr "Active"
+
+#. module: houzz_el
+#: selection:houzz.order.import,order_status:0
+msgid "All"
+msgstr "全部"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_config_name
+msgid "App Name"
+msgstr "App Name"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_form_houzz_order_import
+#: model:ir.ui.view,arch_db:houzz_el.view_form_houzz_payments_import
+#: model:ir.ui.view,arch_db:houzz_el.view_form_houzz_stock
+msgid "Cancel"
+msgstr "取消"
+
+#. module: houzz_el
+#: selection:sale.order,houzz_order_status:0
+msgid "Canceled"
+msgstr "已取消"
+
+#. module: houzz_el
+#: selection:houzz.order.import,order_status:0
+#: selection:sale.order,houzz_order_status:0
+msgid "Charged"
+msgstr "已收款"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_commission
+msgid "Commission"
+msgstr "佣金"
+
+#. module: houzz_el
+#: model:ir.ui.menu,name:houzz_el.menu_houzz_config
+#: model:ir.ui.menu,name:houzz_el.menu_houzz_config_setting
+msgid "Configuration"
+msgstr "配置"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_config_create_uid
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import_create_uid
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_create_uid
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_import_create_uid
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_stock_create_uid
+msgid "Created by"
+msgstr "创建者"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_config_create_date
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import_create_date
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_create_date
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_import_create_date
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_stock_create_date
+msgid "Created on"
+msgstr "创建于"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_currency_id
+msgid "Currency id"
+msgstr "货币"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_deposit_amount
+msgid "Deposit Amount"
+msgstr "存款金额"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_config_display_name
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import_display_name
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_display_name
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_import_display_name
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_stock_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: houzz_el
+#: selection:sale.order,houzz_order_status:0
+msgid "Failed to Charge"
+msgstr "收款失败"
+
+#. module: houzz_el
+#: selection:houzz.order.import,order_status:0
+msgid "FailedToCharge"
+msgstr "收款失败"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import_order_form
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_from_date
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_import_from_date
+msgid "From Date"
+msgstr "开始时间"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import_order_to
+msgid "From To"
+msgstr "结束时间"
+
+#. module: houzz_el
+#: model:ir.ui.menu,name:houzz_el.menu_houzz
+msgid "HOUZZ"
+msgstr "HOUZZ"
+
+#. module: houzz_el
+#: model:ir.model,name:houzz_el.model_houzz_config
+msgid "HOUZZ API Profile"
+msgstr "HOUZZ 接口配置"
+
+#. module: houzz_el
+#: model:ir.actions.act_window,name:houzz_el.houzz_order_list
+msgid "HOUZZ Orders"
+msgstr "订单管理"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import_houzz
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_houzz_config_id
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_import_houzz
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_stock_houzz
+#: model:ir.model.fields,field_description:houzz_el.field_sale_order_houzz_config_id
+msgid "Houzz"
+msgstr "Houzz"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.sale_order_form_view_el
+msgid "Houzz Charge"
+msgstr "收款"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_sale_order_houzz_order_status
+msgid "Houzz Order Status"
+msgstr "Houzz 订单状态"
+
+#. module: houzz_el
+#: model:ir.model,name:houzz_el.model_houzz_payments
+msgid "Houzz Payments"
+msgstr "HOUZZ 存款"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.sale_order_form_view_el
+msgid "Houzz Process"
+msgstr "确认订单"
+
+#. module: houzz_el
+#: model:ir.actions.act_window,name:houzz_el.action_houzz_config
+msgid "Houzz Profile"
+msgstr "Houzz 配置"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_order_tree_houzz
+msgid "Houzz id"
+msgstr "Houzz ID"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_config_id
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import_id
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_id
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_import_id
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_stock_id
+msgid "ID"
+msgstr "ID"
+
+#. module: houzz_el
+#: model:ir.ui.menu,name:houzz_el.houzz_payments_import
+msgid "Import"
+msgstr "导入"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_form_houzz_order_import
+#: model:ir.ui.view,arch_db:houzz_el.view_form_houzz_payments_import
+msgid "Import Order"
+msgstr "导入订单"
+
+#. module: houzz_el
+#: selection:houzz.order.import,order_status:0
+msgid "InProduction"
+msgstr "生产中"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_config___last_update
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import___last_update
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments___last_update
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_import___last_update
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_stock___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_config_write_uid
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import_write_uid
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_import_write_uid
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_write_uid
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_stock_write_uid
+msgid "Last Updated by"
+msgstr "最后更新"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_config_write_date
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import_write_date
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_import_write_date
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_write_date
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_stock_write_date
+msgid "Last Updated on"
+msgstr "最后更新"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import_order_limit
+msgid "Limit"
+msgstr "数量限制"
+
+#. module: houzz_el
+#: model:ir.ui.menu,name:houzz_el.houzz_payments_list
+msgid "List"
+msgstr "列表"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_name
+msgid "Name"
+msgstr "名称"
+
+#. module: houzz_el
+#: selection:houzz.order.import,order_status:0
+msgid "New"
+msgstr "新订单"
+
+#. module: houzz_el
+#: model:ir.actions.act_window,name:houzz_el.action_houzz_import
+#: model:ir.ui.menu,name:houzz_el.houzz_import
+msgid "Order Import"
+msgstr "订单导入"
+
+#. module: houzz_el
+#: model:ir.ui.menu,name:houzz_el.menu_houzz_order_list
+msgid "Order List"
+msgstr "订单列表"
+
+#. module: houzz_el
+#: model:ir.ui.menu,name:houzz_el.menu_houzz_order_tree
+msgid "Order Manage"
+msgstr "订单管理"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_order_tree_houzz
+msgid "Order Number"
+msgstr "订单编号"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import_order_status
+msgid "Order status"
+msgstr "状态"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_payment_id
+msgid "Payment Id"
+msgstr "Payment Id"
+
+#. module: houzz_el
+#: model:ir.actions.act_window,name:houzz_el.action_houzz_payments
+#: model:ir.ui.menu,name:houzz_el.houzz_payments
+msgid "Payments"
+msgstr "支付"
+
+#. module: houzz_el
+#: model:ir.actions.act_window,name:houzz_el.action_houzz_payments_import
+msgid "Payments Import"
+msgstr "导入结算记录"
+
+#. module: houzz_el
+#: selection:sale.order,houzz_order_status:0
+msgid "Placed"
+msgstr "已下单"
+
+#. module: houzz_el
+#: selection:sale.order,houzz_order_status:0
+msgid "Processing"
+msgstr "确认订单"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_sales
+msgid "Sales"
+msgstr "销售"
+
+#. module: houzz_el
+#: model:ir.model,name:houzz_el.model_sale_order
+msgid "Sales Order"
+msgstr "销售订单"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_order_tree_houzz
+msgid "Sales Orders"
+msgstr "销售订单"
+
+#. module: houzz_el
+#: selection:houzz.order.import,order_status:0
+#: selection:sale.order,houzz_order_status:0
+msgid "Shipped"
+msgstr "已发货"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_shipping
+msgid "Shipping"
+msgstr "发货"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_order_import_order_start
+msgid "Start"
+msgstr "开始"
+
+#. module: houzz_el
+#: model:ir.ui.menu,name:houzz_el.houzz_stock
+msgid "Stock"
+msgstr "库存"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_tax
+msgid "Tax"
+msgstr "税"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_import_to_date
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_payments_to_date
+msgid "To Date"
+msgstr "结束日期"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_config_houzz_token
+#: model:ir.ui.view,arch_db:houzz_el.view_form_houzz_config
+msgid "Token"
+msgstr "Token"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_tree_houzz_payments
+msgid "Total Commission"
+msgstr "佣金总额"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_tree_houzz_payments
+msgid "Total Deposit Amount"
+msgstr "存款总额"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_tree_houzz_payments
+msgid "Total Sales"
+msgstr "销售总额"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_tree_houzz_payments
+msgid "Total Shipping"
+msgstr "运费总额"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_tree_houzz_payments
+msgid "Total Tax"
+msgstr "税总额"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_order_tree_houzz
+msgid "Total Tax Included"
+msgstr "含税总金额"
+
+#. module: houzz_el
+#: model:ir.actions.act_window,name:houzz_el.action_houzz_stock
+#: model:ir.ui.menu,name:houzz_el.houzz_update_stock
+#: model:ir.ui.view,arch_db:houzz_el.view_form_houzz_stock
+msgid "Update Stock"
+msgstr "更新库存"
+
+#. module: houzz_el
+#: model:ir.model.fields,field_description:houzz_el.field_houzz_config_houzz_user_name
+msgid "User Name"
+msgstr "用户名"
+
+#. module: houzz_el
+#: model:ir.model,name:houzz_el.model_houzz_order_import
+msgid "houzz.order.import"
+msgstr "订单导入"
+
+#. module: houzz_el
+#: model:ir.model,name:houzz_el.model_houzz_payments_import
+msgid "houzz.payments.import"
+msgstr "导入存款记录"
+
+#. module: houzz_el
+#: model:ir.model,name:houzz_el.model_houzz_stock
+msgid "houzz.stock"
+msgstr "库存"
+
+#. module: houzz_el
+#: model:ir.ui.view,arch_db:houzz_el.view_form_houzz_config
+msgid "输入Token"
+msgstr "输入Token"

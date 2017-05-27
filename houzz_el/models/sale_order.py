@@ -20,7 +20,7 @@ class SaleOrder(models.Model):
         ('Placed', 'Placed'),
         ('Processing', 'Processing'),
         ('Charged', 'Charged'),
-        ('Failed to Charge', 'Failed to Charge'),
+        ('FailedToCharge', 'Failed to Charge'),
         ('Shipped', 'Shipped'),
         ('Canceled', 'Canceled')
     ], string='Houzz Order Status')

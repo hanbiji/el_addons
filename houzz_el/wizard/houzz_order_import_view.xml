@@ -35,4 +35,27 @@
         </field>
     </record>
 
+    <record id="view_form_houzz_payments_import" model="ir.ui.view">
+        <field name="name">view.houzz.payments.import</field>
+        <field name="model">houzz.payments.import</field>
+        <field name="arch" type="xml">
+            <form>
+                    <group>
+                        <field name="houzz" />
+                    </group>
+                    <group>
+                        <field name="from_date" />
+                    </group>
+                    <group>
+                        <field name="to_date" />
+                    </group>
+
+                <footer>
+                    <button type="object" name="do_import" string="Import Order" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
 </odoo>

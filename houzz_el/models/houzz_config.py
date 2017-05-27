@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from houzzApi import *
+from houzzApi import HouzzApi
 
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
@@ -198,4 +198,24 @@ class HouzzConfig(models.Model):
         }
         self.env['product.supplierinfo'].create(vendor)
         return True
+
+
+class HouzzPayments(models.Model):
+    """HOUZZ结算管理"""
+    _name = 'houzz.payments'
+    _description = 'Houzz Payments'
+
+    name = fields.Char('Name')
+    houzz_config_id = fields.Many2one('houzz.config', string='Houzz')
+    payment_id = fields.Char('Payment Id', index=True)
+    from_date = fields.Datetime('From Date')
+    to_date = fields.Datetime('To Date')
+    sales = fields.Float(string='Sales')
+    shipping = fields.Float(string='Shipping')
+    tax = fields.Float(string='Tax')
+    commission = fields.Float(string='Commission')
+    deposit_amount = fields.Monetary(string='Deposit Amount', currency_field='currency_id', track_visibility='always')
+    currency_id = fields.Many2one('res.currency', readonly=True,
+                                          default=lambda self: self.env.user.company_id.currency_id)
+
 

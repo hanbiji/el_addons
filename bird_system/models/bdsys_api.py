@@ -65,7 +65,7 @@ class BdsysApi(object):
         product_id:238721
         quantity:1
         is_directional_shared_product:0
-        :return: 
+        :return:
         """
         url = 'http://www.birdsystem.com/client/Consignment-Product/'
         body = {
@@ -122,7 +122,7 @@ class BdsysApi(object):
         company_product-low_stock_level:
         inventory_time:
         status:PREPARING
-        :return: 
+        :return:
         """
         url = 'http://www.birdsystem.com/client/Product/'
         response = self.session.post(url, data=body)

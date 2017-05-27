@@ -1,70 +1,40 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import pycurl
-import certifi
 import json
-from StringIO import StringIO
-from urllib import urlencode
-from json.encoder import JSONEncoder
-from pyasn1.compat.octets import null
-from dircache import cache
+import requests
+
 try:
     import xml.etree.cElementTree as ET
 except ImportError:
     import xml.etree.ElementTree as ET
 
 
-class  HouzzApi(object):
-    'Houzz api'
+class HouzzApi(object):
+    """Houzz api"""
+
     def __init__(self, token, user_name, app_name):
         self.token = token
         self.user_name = user_name
         self.app_name = app_name
         self.api_url = 'https://api.houzz.com/api?'
+        self.session = requests.Session()
+        self.session.headers['X-HOUZZ-API-SSL-TOKEN'] = token
+        self.session.headers['X-HOUZZ-API-USER-NAME'] = user_name
+        self.session.headers['X-HOUZZ-API-APP-NAME'] = app_name
 
     def get(self, url):
-        buffer = StringIO()
-        c = pycurl.Curl()
-        c.setopt(c.CAINFO, certifi.where())
-        c.setopt(c.URL, url)
-
-        header = [
-            'X-HOUZZ-API-SSL-TOKEN: ' + self.token,
-            'X-HOUZZ-API-USER-NAME: ' + self.user_name,
-            'X-HOUZZ-API-APP-NAME: ' + self.app_name
-            ]
-        c.setopt(c.HTTPHEADER, header)
-        c.setopt(c.WRITEDATA, buffer)
-        c.perform()
-        c.close()
-        return buffer.getvalue()
+        response = self.session.get(url)
+        return response.text.encode('utf-8')
 
     def post(self, url, data=''):
-        buffer = StringIO()
-        c = pycurl.Curl()
-        c.setopt(c.CAINFO, certifi.where())
-        c.setopt(c.URL, url)
-
-        header = [
-            'X-HOUZZ-API-SSL-TOKEN: ' + self.token,
-            'X-HOUZZ-API-USER-NAME: ' + self.user_name,
-            'X-HOUZZ-API-APP-NAME: ' + self.app_name,
-            "Content-type: text/xml"
-            ]
-        c.setopt(c.HTTPHEADER, header)
-        c.setopt(c.CUSTOMREQUEST, 'POST')
-        c.setopt(c.POSTFIELDS, data)
-
-        c.setopt(c.WRITEDATA, buffer)
-        c.perform()
-        c.close()
-        return buffer.getvalue()
+        response = self.session.post(url, data=data)
+        return response.text.encode('utf-8')
 
     def encode_response(self, response):
         """解析订单操作返回的XML"""
         tree = ET.ElementTree(ET.fromstring(response))
+        # print response
         if tree.find('Ack').text == 'Error':
-            # print response
             return False
         else:
             return True
@@ -72,7 +42,8 @@ class  HouzzApi(object):
     def process_order(self, order_id):
         """Process order"""
         url = self.api_url + 'format=xml&method=updateOrder'
-        xml_data = '<UpdateOrderRequest><OrderId>{}</OrderId><Action>Process</Action></UpdateOrderRequest>'.format(order_id)
+        xml_data = '<UpdateOrderRequest><OrderId>{}</OrderId><Action>Process</Action></UpdateOrderRequest>'.format(
+            order_id)
         response = self.post(url, xml_data)
         return self.encode_response(response)
 
@@ -102,16 +73,18 @@ class  HouzzApi(object):
 
     def get_listings(self, Start=0, Status='Active', NumberOfItems='100', Format='json'):
         """Get Listings"""
-        url = self.api_url + 'format=%s&method=getListings&Status=%s&NumberOfItems=%s&Start=%s' % (Format, Status, NumberOfItems, Start)
+        url = self.api_url + 'format=%s&method=getListings&Status=%s&NumberOfItems=%s&Start=%s' % (
+            Format, Status, NumberOfItems, Start)
         body = self.get(url)
         try:
             return json.loads(body)
         except ValueError:
             return body
 
-    def get_orders(self, from_date=None, to_date=None, status='New', start=0, limit=1000, Format='xml'):
+    def get_orders(self, from_date=None, to_date=None, status='New', start=0, limit=1000, format='xml'):
         """Get Orders"""
-        url = self.api_url + 'format=%s&method=getOrders&Status=%s&Start=%d&NumberOfItems=%d' % (Format, status, start, limit)
+        url = self.api_url + 'format=%s&method=getOrders&Status=%s&Start=%d&NumberOfItems=%d' % (
+            format, status, start, limit)
         if from_date:
             url += '&From=%s' % from_date
         if to_date:
@@ -123,8 +96,26 @@ class  HouzzApi(object):
     def update_inventory(self, sku, qty):
         """Update Inventory"""
         url = self.api_url + 'format=xml&method=updateInventory'
-        xml_data = '<UpdateInventoryRequest><SKU>{}</SKU><Action>update</Action><Quantity>{}</Quantity></UpdateInventoryRequest>'.format(sku, qty)
+        xml_data = '<UpdateInventoryRequest><SKU>{}</SKU><Action>update</Action><Quantity>{}</Quantity></UpdateInventoryRequest>'.format(
+            sku, qty)
         response = self.post(url, xml_data)
         return self.encode_response(response)
 
+    def get_payments(self, from_date, to_date, start=0, limit=100):
+        """Get Payments"""
+        url = self.api_url + 'format=json&method=getPayments&From={from_date}&To={to_date}&Start={start}&NumberOfItems={limit}'.format(
+            from_date=from_date, to_date=to_date, start=start, limit=limit)
+        response = self.get(url)
+        json_data = json.loads(response)
+        if 'Payments' in json_data.keys():
+            return json_data['Payments']
+        else:
+            return list()
+
+    def get_transactions(self, payment_id):
+        """Get Transactions"""
+        url = self.api_url + 'format=json&method=getTransactions&PaymentId=%s' % payment_id
+        response = self.get(url)
+        json_data = json.loads(response)
+        return json_data['Payment']
 

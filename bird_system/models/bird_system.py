@@ -97,7 +97,7 @@ class BirdProduct(models.Model):
     product_id = fields.Char(string='Product Id')
     material = fields.Char('material', required=True)
     usage = fields.Char('usage', default='lighting', required=True)
-    price_customs_export = fields.Float(string='Price Customs', default=10.00, required=True)
+    price_customs_export = fields.Float(string='Price Customs', default=20.00, required=True)
     customs_category_id = fields.Char('Customs Category Id', default='1043')
     customs_category_code = fields.Char(string='Customs Category', default='GB8539319100', required=True)
     brand = fields.Char('Brand', default='Null', required=True)

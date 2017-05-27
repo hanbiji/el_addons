@@ -9,7 +9,7 @@
                         <field name="houzz" />
                     </group>
                 <footer>
-                    <button type="object" name="do_update_stock" string="同步库存" class="oe_highlight"/>
+                    <button type="object" name="do_update_stock" string="Update Stock" class="oe_highlight"/>
                     <button special="cancel" string="Cancel"/>
                 </footer>
             </form>

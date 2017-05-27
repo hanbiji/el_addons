@@ -275,4 +275,41 @@ class HouzzOrderImport(models.TransientModel):
         return True
 
 
+class HouzzPaymentsImport(models.TransientModel):
+    """HOUZZ结算导入"""
+    _name = 'houzz.payments.import'
+
+    houzz = fields.Many2one('houzz.config', 'Houzz', required=True)
+    from_date = fields.Date('From Date')
+    to_date = fields.Date('To Date')
+
+    @api.multi
+    def do_import(self):
+        """Do Import Payments"""
+        self.ensure_one()
+        houzz = HouzzApi(token=self.houzz.houzz_token, user_name=self.houzz.houzz_user_name, app_name=self.houzz.name)
+        payment_ids = houzz.get_payments(from_date=self.from_date, to_date=self.to_date)
+        for payment_id in payment_ids:
+            payment = houzz.get_transactions(payment_id)
+            payment_data = self.env['houzz.payments'].search_count([('payment_id', '=', payment_id)])
+            if payment_data == 0:
+                self.env['houzz.payments'].create({
+                    'houzz_config_id': self.houzz.id,
+                    'name': payment_id + 'Payment',
+                    'payment_id': payment_id,
+                    'from_date': payment['FromDate'],
+                    'to_date': payment['ToDate'],
+                    'sales': float(payment['Sales']),
+                    'shipping': float(payment['Shipping']),
+                    'tax': float(payment['Tax']),
+                    'commission': float(payment['Commission']),
+                    'deposit_amount': float(payment['DepositAmount']),
+                    'currency_id': 3,
+                })
+
+
+
+
+
+
 
