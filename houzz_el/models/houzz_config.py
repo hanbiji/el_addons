@@ -19,9 +19,13 @@ class HouzzConfig(models.Model):
     """HOUZZ API 配置模块"""
     _name = 'houzz.config'
     _description = 'HOUZZ API Profile'
+    _rec_name = 'store_name'
+
+    store_name = fields.Char(string='Store Name')
     name = fields.Char(string='App Name', required=True)
     houzz_token = fields.Char(string='Token', required=True)
     houzz_user_name = fields.Char(string='User Name', required=True)
+    team_id = fields.Many2one('crm.team', string='Team', required=True)
 
     @api.multi
     def do_import_order(self):

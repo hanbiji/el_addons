@@ -3,5 +3,5 @@
     'description': 'Extend the Product. Add length, width, height',
     'author': 'Joe Han',
     'depends': ['product'],
-    'data':['views/product_lwh.xml']
+    'data': ['views/product_lwh.xml']
 }

@@ -1,45 +1,49 @@
 <?xml version="1.0"?>
 <odoo>
-	<data>
-		<record id="view_form_sku_box" model="ir.ui.view">
-			<field name="name">SKU Box Form</field>
-			<field name="model">sku.box</field>
-			<field name="arch" type="xml">
-				<form string="SKU BOX Form">
-					<header>
+    <data>
+        <record id="view_form_sku_box" model="ir.ui.view">
+            <field name="name">SKU Box Form</field>
+            <field name="model">sku.box</field>
+            <field name="arch" type="xml">
+                <form string="SKU BOX Form">
+                    <header>
+                    </header>
+                    <sheet>
+                        <group name="group_top">
+                            <field name='product_id'/>
+                            <field name='sku'/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
 
-					</header>
-					<sheet>
-						<group name="group_top">
-							<field name='team_id' />
-							<field name='product_id' />
-							<field name='name' />
-							<field name='sku' />
-						</group>
+        <record id="view_tree_sku_box" model="ir.ui.view">
+            <field name="name">SKU BOX List</field>
+            <field name="model">sku.box</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="product_id"/>
+                    <field name="sku"/>
+                </tree>
+            </field>
+        </record>
 
-					</sheet>
-					<div class="oe_chatter">
-						<field name="message_follower_ids" widget="mail_followers" />
-						<field name="message_ids" widget="mail_thread" />
-					</div>
-				</form>
-			</field>
-		</record>
-
-		<record id="view_tree_sku_box" model="ir.ui.view">
-			<field name="name">SKU BOX List</field>
-			<field name="model">sku.box</field>
-			<field name="arch" type="xml">
-				<tree>
-					<field name="team_id" />
-					<field name="product_id" />
-					<field name="name" />
-					<field name="sku" />
-				</tree>
-			</field>
-		</record>
+        <record id="view_filter_sku_box" model="ir.ui.view">
+            <field name="name">view.filter.sku.box</field>
+            <field name="model">sku.box</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="product_id"/>
+                    <field name="sku"/>
+                </search>
+            </field>
+        </record>
 
 
-
-	</data>
+    </data>
 </odoo>

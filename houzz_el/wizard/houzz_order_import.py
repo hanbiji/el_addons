@@ -12,7 +12,6 @@ _logger = logging.getLogger(__name__)
 
 
 class HouzzOrderImport(models.TransientModel):
-
     """Houzz 订单导入"""
 
     _name = 'houzz.order.import'
@@ -193,17 +192,18 @@ class HouzzOrderImport(models.TransientModel):
                 # print customer
                 customer_id = self.env['res.partner'].create(customer)
 
-            customer_id = customer_id[0]['id']
+            customer_id = customer_id.id
 
             # 查询订单是否存在
             check_order = self.env['sale.order'].search([('client_order_ref', '=', OrderId)])
 
             if not check_order:
+                team = self.env['houzz.config'].browse([houzz_id])
                 # 新建订单
                 sale = self.env['sale.order'].create({
                     'partner_id': customer_id,
                     'client_order_ref': OrderId,
-                    'team_id': 4,
+                    'team_id': team.team_id.id,
                     'date_order': Created,
                     'validity_date': LatestShipDate,
                     'houzz_config_id': houzz_id,
@@ -215,9 +215,10 @@ class HouzzOrderImport(models.TransientModel):
                         sku = i.find('SKU').text
                         product_uom_qty = int(i.find('Quantity').text)
                     else:
-                        sku = 'coupon'
+                        sku = 'COUPON'
                         product_uom_qty = 1
 
+                    sku = sku.upper()
                     default_code = sku
                     price_unit = float(i.find('Price').text)
                     # 产品
@@ -227,22 +228,42 @@ class HouzzOrderImport(models.TransientModel):
                         fields=['id', 'name', 'uom_id']
                     )
                     if not product:
-                        self.create_product(default_code)
-                        product = self.env['product.product'].search_read(
-                            domain=[('default_code', '=', default_code)],
-                            limit=1,
-                            fields=['id', 'name', 'uom_id']
+                        # self.create_product(default_code)
+                        product = self.env['sku.box'].search_read(
+                            domain=[('sku', '=', default_code)],
+                            limit=1
                         )
+                        if product:
+                            # print product[0]['product_id']
+                            product = self.env['product.product'].search_read(
+                                domain=[('id', '=', product[0]['product_id'][0])],
+                                limit=1,
+                                fields=['id', 'name', 'uom_id']
+                            )
 
-                    # 添加订单产品
-                    self.env['sale.order.line'].create({
-                        'order_id': sale[0]['id'],
-                        'product_id': product[0]['id'],
-                        'name': product[0]['name'],
-                        'product_uom': product[0]['uom_id'][0],
-                        'product_uom_qty': product_uom_qty,
-                        'price_unit': price_unit
-                    })
+                    if product:
+                        # 添加订单内容
+                        self.env['sale.order.line'].create({
+                            'order_id': sale.id,
+                            'product_id': product[0]['id'],
+                            'name': product[0]['name'],
+                            'product_uom': product[0]['uom_id'][0],
+                            'product_uom_qty': product_uom_qty,
+                            'price_unit': price_unit,
+                            'tax_id': False
+                        })
+                        # 分配仓库
+                        quants = self.env['stock.quant'].search([('product_id', '=', product[0]['id'])])
+                        for quant in quants:
+                            if (quant.qty - product_uom_qty) >= 0.0:
+                                warehouse = self.env['stock.warehouse'].search(
+                                    [('lot_stock_id', '=', quant.location_id.id)])
+                                if warehouse:
+                                    sale.update({'warehouse_id': warehouse[0]['id']})
+                    else:
+                        sale.message_post(
+                            body=u"<p style='color:red;font-size:14px'>系统没有找到SKU：%s 数量：%f, 请添加附加SKU或联系管理员</a>" % (
+                                sku, product_uom_qty))
 
         return True
 
@@ -253,7 +274,8 @@ class HouzzOrderImport(models.TransientModel):
         for houzz in houzzs:
             # print houzz.houzz_token
             houzz_model = HouzzApi(token=houzz.houzz_token, user_name=houzz.houzz_user_name, app_name=houzz.name)
-            orders = self.env['sale.order'].search([('houzz_config_id', '=', houzz.id), ('houzz_order_status', '=', 'Charged')])
+            orders = self.env['sale.order'].search(
+                [('houzz_config_id', '=', houzz.id), ('houzz_order_status', '=', 'Charged')])
             for order in orders:
                 stock_pickings = self.env['stock.picking'].search([('origin', '=', order.name)])
                 carriers = []
@@ -306,10 +328,5 @@ class HouzzPaymentsImport(models.TransientModel):
                     'deposit_amount': float(payment['DepositAmount']),
                     'currency_id': 3,
                 })
-
-
-
-
-
 
 

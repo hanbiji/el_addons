@@ -49,20 +49,7 @@ class AmazonOrderImport(models.TransientModel):
         if 'NextToken' in response.parsed.keys():
             next_token = response.parsed['NextToken']['value']
             self.import_order_by_next_token(mws_order, next_token, self.amazon.id)
-        dict2 = {
-            'name': _('Import Order'),
-            'view_type': 'form',
-            'view_mode': 'form',
-            'view_id': False,
-            'res_model': 'amazon.order.import',
-            'domain': [],
-            'context': dict(self._context, active_ids=self.ids),
-            'type': 'ir.actions.act_window',
-            'target': 'new',
-            'res_id': self.id,
-        }
 
-        # return dict2
         return {'type': 'ir.actions.act_window_close'}
 
     @api.model
@@ -146,10 +133,10 @@ class AmazonOrderImport(models.TransientModel):
             Email = None
             if 'BuyerEmail' in order.keys():
                 Email = order['BuyerEmail']['value']
-                if Email:
-                    m = hashlib.md5()
-                    m.update(Email)
-                    Email = m.hexdigest()
+                # if Email:
+                #     m = hashlib.md5()
+                #     m.update(Email)
+                #     Email = m.hexdigest()
 
             ShippingAddress = order['ShippingAddress']
             Address = ShippingAddress['AddressLine1']['value']
@@ -201,30 +188,40 @@ class AmazonOrderImport(models.TransientModel):
 
             # 查询用户是否存在
             search_customer = self.env['res.partner'].search([('email', '=', Email)])
-
-            customer_id = 0
             if search_customer:
                 customer_id = search_customer[0]['id']
+                customer_type = 'delivery'
+                customer = {
+                    'type': customer_type,
+                    'parent_id': customer_id,
+                    'name': CustomerName,
+                    'email': Email,
+                    'phone': Phone,
+                    'street': Address,
+                    'street2': Address1,
+                    'city': City,
+                    'state_id': state_id,
+                    'country_id': country_ids[0]['id'],
+                    'zip': Zip,
+                    'property_product_pricelist': price_list[0]['id']
+                }
+            else:
+                customer = {
+                    'name': CustomerName,
+                    'email': Email,
+                    'phone': Phone,
+                    'street': Address,
+                    'street2': Address1,
+                    'city': City,
+                    'state_id': state_id,
+                    'country_id': country_ids[0]['id'],
+                    'zip': Zip,
+                    'property_product_pricelist': price_list[0]['id']
+                }
 
             # 添加收货地址
-            customer = {
-                'type': 'delivery',
-                'parent_id': customer_id,
-                'name': CustomerName,
-                'email': Email,
-                'phone': Phone,
-                'street': Address,
-                'street2': Address1,
-                'city': City,
-                'state_id': state_id,
-                'country_id': country_ids[0]['id'],
-                'zip': Zip,
-                'property_product_pricelist': price_list[0]['id']
-            }
-            # print customer
             customer = self.env['res.partner'].create(customer)
-
-            customer_id = customer[0]['id']
+            customer_id = customer.id
 
             # 查询订单是否存在
             check_order = self.env['sale.order'].search([('client_order_ref', '=', OrderId)])
@@ -234,10 +231,13 @@ class AmazonOrderImport(models.TransientModel):
                 state = 'draft'
                 if fulfillment_channel == 'AFN':
                     state = 'done'
+
+                team = self.env['amazon'].browse([amazon_id])
+
                 sale = self.env['sale.order'].create({
                     'partner_id': customer_id,
                     'client_order_ref': OrderId,
-                    'team_id': 4,
+                    'team_id': team.team_id.id,
                     'date_order': Created,
                     'validity_date': LatestShipDate,
                     'state': state,
@@ -292,7 +292,7 @@ class AmazonOrderImport(models.TransientModel):
                     })
 
                 for i in items:
-                    sku = i['sku']
+                    sku = i['sku'].upper()
                     product_uom_qty = float(i['qty'])
 
                     default_code = sku
@@ -305,23 +305,45 @@ class AmazonOrderImport(models.TransientModel):
                         fields=['id', 'name', 'uom_id']
                     )
                     if not product:
-                        self.create_product(default_code)
-                        product = self.env['product.product'].search_read(
-                            domain=[('default_code', '=', default_code)],
-                            limit=1,
-                            fields=['id', 'name', 'uom_id']
+                        # 不存在新建产品
+                        # self.create_product(default_code)
+                        product = self.env['sku.box'].search_read(
+                            domain=[('sku', '=', default_code)],
+                            limit=1
                         )
+                        if product:
+                            # print product[0]['product_id']
+                            product = self.env['product.product'].search_read(
+                                domain=[('id', '=', product[0]['product_id'][0])],
+                                limit=1,
+                                fields=['id', 'name', 'uom_id']
+                            )
 
-                    # 添加订单产品
-                    self.env['sale.order.line'].create({
-                        'order_id': sale[0]['id'],
-                        'product_id': product[0]['id'],
-                        'name': product[0]['name'],
-                        'product_uom': product[0]['uom_id'][0],
-                        'product_uom_qty': product_uom_qty,
-                        'price_unit': price_unit,
-                        'amazon_order_item_id': i['order_item_id']
-                    })
+                    if product:
+                        # 添加订单内容
+                        self.env['sale.order.line'].create({
+                            'order_id': sale.id,
+                            'product_id': product[0]['id'],
+                            'name': product[0]['name'],
+                            'product_uom': product[0]['uom_id'][0],
+                            'product_uom_qty': product_uom_qty,
+                            'price_unit': price_unit,
+                            'amazon_order_item_id': i['order_item_id'],
+                            'tax_id': False
+                        })
+                        # 分配仓库
+                        quants = self.env['stock.quant'].search([('product_id', '=', product[0]['id'])])
+                        for quant in quants:
+                            if (quant.qty - product_uom_qty) >= 0.0:
+                                warehouse = self.env['stock.warehouse'].search(
+                                    [('lot_stock_id', '=', quant.location_id.id)])
+
+                                if warehouse:
+                                    sale.update({'warehouse_id': warehouse[0]['id']})
+                    else:
+                        sale.message_post(
+                            body=u"<p style='color:red;font-size:14px'>系统没有找到SKU：%s 数量：%f, 请添加附加SKU或联系管理员</a>" % (
+                                sku, product_uom_qty))
 
         return True
 
@@ -398,18 +420,21 @@ class AmazonOrderImport(models.TransientModel):
                         })
                 if carriers:
                     if len(carriers) >= len(items):
-                        message = ''.join([message_tpl.format(MessageID=carr['MessageID'], AmazonOrderID=order.client_order_ref,
-                                                  FulfillmentDate=datetime.now().isoformat(),
-                                                  CarrierCode=carr['CarrierCode'],
-                                                  ShipperTrackingNumber=carr['ShipperTrackingNumber'],
-                                                  AmazonOrderItemCode=item['AmazonOrderItemCode'],
-                                                  Quantity=item['Quantity']) for item, carr in zip(items, carriers)])
+                        message = ''.join(
+                            [message_tpl.format(MessageID=carr['MessageID'], AmazonOrderID=order.client_order_ref,
+                                                FulfillmentDate=datetime.now().isoformat(),
+                                                CarrierCode=carr['CarrierCode'],
+                                                ShipperTrackingNumber=carr['ShipperTrackingNumber'],
+                                                AmazonOrderItemCode=item['AmazonOrderItemCode'],
+                                                Quantity=item['Quantity']) for item, carr in zip(items, carriers)])
                     else:
                         item_tpl = """<Item>
                                 <AmazonOrderItemCode>{AmazonOrderItemCode}</AmazonOrderItemCode>
                                 <Quantity>{Quantity}</Quantity>
                             </Item>"""
-                        item_str = ''.join([item_tpl.format(AmazonOrderItemCode=item['AmazonOrderItemCode'], Quantity=item['Quantity']) for item in items])
+                        item_str = ''.join(
+                            [item_tpl.format(AmazonOrderItemCode=item['AmazonOrderItemCode'], Quantity=item['Quantity'])
+                             for item in items])
                         message = """<Message>
                                 <MessageID>{MessageID}</MessageID>
                                 <OrderFulfillment>
@@ -421,7 +446,11 @@ class AmazonOrderImport(models.TransientModel):
                                     </FulfillmentData>
                                     {item}
                                 </OrderFulfillment>
-                            </Message>""".format(MessageID=message_id, AmazonOrderID=order.client_order_ref, FulfillmentDate=datetime.now().isoformat(), CarrierCode=carriers[0]['CarrierCode'], ShipperTrackingNumber=carriers[0]['ShipperTrackingNumber'], item=item_str)
+                            </Message>""".format(MessageID=message_id, AmazonOrderID=order.client_order_ref,
+                                                 FulfillmentDate=datetime.now().isoformat(),
+                                                 CarrierCode=carriers[0]['CarrierCode'],
+                                                 ShipperTrackingNumber=carriers[0]['ShipperTrackingNumber'],
+                                                 item=item_str)
 
                     messages.append(message)
                     # 更新订单状态
@@ -441,7 +470,8 @@ class AmazonOrderImport(models.TransientModel):
                 # print feed
                 feed_model = mws.Feeds(amazon_config.access_key, amazon_config.secret_key, amazon_config.account_id,
                                        amazon_config.region)
-                response = feed_model.submit_feed(feed, '_POST_ORDER_FULFILLMENT_DATA_', (amazon_config.marketplace_id,))
+                response = feed_model.submit_feed(feed, '_POST_ORDER_FULFILLMENT_DATA_',
+                                                  (amazon_config.marketplace_id,))
                 # print response.original
                 # print response.parsed
                 feed_id = response.parsed['FeedSubmissionInfo']['FeedSubmissionId']['value']

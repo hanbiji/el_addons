@@ -17,7 +17,7 @@
                         <field name="access_key" />
                     </group>
                     <group>
-                        <field name="secret_key" password="True" />
+                        <field name="secret_key" />
                     </group>
                     <group>
                         <field name="account_id" />
@@ -25,7 +25,9 @@
                     <group>
                         <group><field name="region" /></group>
                         <group><field name="marketplace_id" /></group>
-
+                    </group>
+                    <group>
+                        <field name="team_id"/>
                     </group>
                 </sheet>
 			</form>
@@ -39,7 +41,7 @@
             <tree>
                 <field name="name" />
                 <field name="access_key" />
-                <field name="secret_key" password="True" />
+                <field name="secret_key" />
                 <field name="account_id" />
                 <field name="region" />
                 <field name="marketplace_id" />

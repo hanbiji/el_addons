@@ -39,3 +39,5 @@ class Amazon(models.Model):
     account_id = fields.Char(string='Account Id', required=True)
     region = fields.Selection(REGION, string='Region', required=True)
     marketplace_id = fields.Char('Marketplace Id', required=True, help="US: ATVPDKIKX0DER, CA: A2EUQ1WTGCTBG2")
+    team_id = fields.Many2one('crm.team', string='Team', required=True)
+

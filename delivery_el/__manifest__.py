@@ -6,6 +6,7 @@
     'data': [
         'views/delivery_view.xml',
         'views/tracking_view.xml',
-        'views/tracking_menu.xml'
+        'views/tracking_menu.xml',
+        'security/ir.model.access.csv'
     ]
 }

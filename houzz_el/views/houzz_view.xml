@@ -5,23 +5,15 @@
         <field name="name">Create Houzz Profile</field>
         <field name="model">houzz.config</field>
         <field name="arch" type="xml">
-            <form>
-                <header>
-                    <button name="do_import_order" type="object" string="导入订单" class="oe_highlight"/>
-                </header>
+            <form string="Houzz Config">
                 <sheet>
-                    <div>
-                        <label for="name" string="APP ID"/>
-                        <field name="name" placeholder="APP ID"/>
-                    </div>
-                    <div>
-                        <label for="houzz_user_name" string="帐号"/>
-                        <field name="houzz_user_name" placeholder="输入帐号"/>
-                    </div>
-                    <div>
-                        <label for="houzz_token" string="Token"/>
-                        <field name="houzz_token" placeholder="输入Token"/>
-                    </div>
+                    <group>
+                        <field name="store_name"/>
+                        <field name="name"/>
+                        <field name="houzz_user_name" />
+                        <field name="houzz_token"/>
+                        <field name="team_id"/>
+                    </group>
                 </sheet>
             </form>
         </field>
@@ -32,6 +24,7 @@
         <field name="model">houzz.config</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="store_name"/>
                 <field name="name"/>
                 <field name="houzz_user_name"/>
                 <field name="houzz_token"/>

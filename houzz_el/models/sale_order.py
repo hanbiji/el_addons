@@ -15,7 +15,7 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     houzz_config_id = fields.Many2one('houzz.config', string='Houzz')
-    client_order_ref = fields.Char(required=True)
+    client_order_ref = fields.Char(required=True, copy=True)
     houzz_order_status = fields.Selection([
         ('Placed', 'Placed'),
         ('Processing', 'Processing'),

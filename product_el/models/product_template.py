@@ -11,11 +11,10 @@ from odoo.exceptions import ValidationError, except_orm
 
 
 class ProductTemplate(models.Model):
-    _name = "product.template"
+    """扩展产品模块，增加长，宽，高"""
     _inherit = ['product.template']
+
     length = fields.Float('Length', size=10)
     width = fields.Float('Width', size=10)
     height = fields.Float('Height', size=10)
 
-
-    

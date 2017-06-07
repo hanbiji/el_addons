@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <act_window id="action_refund_el_tree" name="Refund List" res_model="refund.el" view_mode="tree,form" />
+
+    <record id="view_refund_el_tree" model="ir.ui.view">
+        <field name="name">view.tree.refund.el</field>
+        <field name="model">refund.el</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="order_id"/>
+                <field name="reason"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="refund_total" sum="Refund Total"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_refund_el" model="ir.ui.view">
+        <field name="name">view.refund.el</field>
+        <field name="model">refund.el</field>
+        <field name="arch" type="xml">
+            <form string="Refund" class="oe_form_configuration">
+                <group>
+                    <field name="order_id"/>
+                    <field name="reason"/>
+                    <field name="currency_id"/>
+                    <field name="refund_total"/>
+                    <field name="remark" widget="html"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_refund_el_form" model="ir.actions.act_window">
+        <field name="name">view.refund.el.window</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="res_model">refund.el</field>
+        <field name="arch" type="xml">
+            <form string="Refund" class="oe_form_configuration">
+                <group>
+                    <field name="order_id"/>
+                    <field name="reason"/>
+                    <field name="currency_id"/>
+                    <field name="refund_total"/>
+                    <field name="remark" widget="html"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_order_form_view_refund_el" model="ir.ui.view">
+        <field name="name">sale.order.form.view.refund.el</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_refund_el" string="Refund" type="object" />
+            </xpath>
+            <field name="validity_date" position="after">
+                <field name="refund_el" attrs="{'invisible': [('refund_el', '=', 0)]}" />
+			</field>
+		</field>
+    </record>
+
+    <menuitem id="menu_refund_el_tree" action="action_refund_el_tree" name="Refund" parent="sales_team.menu_sales" sequence="100"/>
+</odoo>

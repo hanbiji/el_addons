@@ -11,7 +11,7 @@ class SaleOrder(models.Model):
 
     amazon_id = fields.Many2one('amazon', string='Amazon Store')
     fulfillment_channel = fields.Selection([('MFN', 'MFN'), ('AFN', 'AFN')], string='Fulfillment Channel')
-    client_order_ref = fields.Char(required=True)
+    client_order_ref = fields.Char(required=True, copy=True)
     amazon_order_status = fields.Selection([
         ('PendingAvailability', 'PendingAvailability'),
         ('Pending', 'Pending'),

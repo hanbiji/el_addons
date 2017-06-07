@@ -19,7 +19,7 @@ class BirdSystem(models.Model):
     contact = fields.Char('Contact', required=True)
     country_iso = fields.Many2one('res.country', string='Country', required=True)
     consignment_id = fields.Char('Consignment id')
-    product_list = fields.One2many('bird.rma.product.list', 'rma_id', string='Product List', required=True)
+    product_list = fields.One2many('bird.rma.product.list', 'rma_id', string='Product List')
     status = fields.Selection([
         ('PREPARING', 'PREPARING'),
         ('RECEIVED', 'RECEIVED'),
@@ -101,18 +101,21 @@ class BirdProduct(models.Model):
     customs_category_id = fields.Char('Customs Category Id', default='1043')
     customs_category_code = fields.Char(string='Customs Category', default='GB8539319100', required=True)
     brand = fields.Char('Brand', default='Null', required=True)
-    weight = fields.Float(required=True)
+    weight = fields.Float()
 
     @api.model
-    def get_product(self, start=0, limit=200):
+    def get_product(self, uid=None, location=None, start_d=0, limit_d=200):
         """拉取产品"""
+        print start_d, limit_d
         bdsys_config = self.env['bird.system.config.settings'].browse(1)
         bdsys = BdsysApi(bdsys_config.bird_system_api_key, bdsys_config.bird_system_company_id)
-        products = bdsys.get_product(start=start, limit=limit)
+        products = bdsys.get_product(start=start_d, limit=limit_d)
         totals = products['total']
+        print totals, start_d, limit_d
+
         # 保存数据
         for data in products['data']:
-            product = self.search([('sku', '=', data['client_ref'])])
+            product = self.search([('sku', 'ilike', data['client_ref'])])
             if len(product) == 0:
                 product_info = bdsys.get_product_info(data['id'])
                 self.create({
@@ -134,9 +137,10 @@ class BirdProduct(models.Model):
                         'material': product_info['data'][0]['material'],
                         'usage': product_info['data'][0]['usage']
                     })
-
-        if totals > (start + limit):
-            self.get_product(start + limit)
+        print totals, start_d, limit_d
+        tt = start_d + limit_d
+        if totals > tt:
+            self.get_product(start_d=tt)
         else:
             return True
 
