@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+    <act_window id="action_magento_config_tree" name="Magento Config" res_model="magento.config"
+                view_mode="tree,form" />
+    <menuitem id="menu_magento_config_tree" action="action_magento_config_tree" name="Magento Config"
+              parent="sales_team.menu_sales"
+              sequence="200"/>
+    <record id="view_magento_config_form" model="ir.ui.view">
+        <field name="name">view.magento.config.form</field>
+        <field name="model">magento.config</field>
+        <field name="arch" type="xml">
+            <form name="magento.config" class="oe_form_configuration">
+                <group>
+                    <field name="name"/>
+                    <field name="url"/>
+                    <field name="user"/>
+                    <field name="password"/>
+                    <field name="team_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

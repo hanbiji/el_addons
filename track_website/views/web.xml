@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="assets_frontend"
+              name="track_website_assets"
+              inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css"
+                  href="/track_website/static/src/css/index.css"/>
+        </xpath>
+    </template>
+
+    <template id="index" name="Track List">
+        <t t-call="website.layout">
+            <div id="wrap" class="container">
+                <h1>Track List</h1>
+                <t t-foreach="tracks" t-as="track">
+                    <div class="row">
+                        <a t-attf-href="/track/{{slug(track)}}">
+                            <span t-field="track.carrier_id"/>-
+                            <span t-field="track.tracking_ref"/>
+                        </a>
+                    </div>
+                </t>
+                <!-- Add a new Task -->
+                <div class="row">
+                    <a href="/track/add" class="btn btn-primary btn-lg">
+                        Add
+                    </a>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="detail" name="Track Detail">
+        <t t-call="website.layout">
+            <div id="wrap" class="container">
+                <h1 t-field="track.tracking_ref"/>
+                <p>Carrier:
+                    <span t-field="track.carrier_id"/>
+                </p>
+                <p>Weight:
+                    <span t-field="track.weight"/>
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <template id="add" name="Update Track Weight">
+        <t t-call="website.layout">
+            <div id="wrap" class="container">
+                <div class="row">
+                    <section id="forms">
+                        <form method="post" class="s_website_form container-fluid form-horizontal"
+                              action="/website_form/"
+                              data-model_name="tracking.reference"
+                              data-success_page="/track/add"
+                              enctype="multipart/form-data">
+                            <!-- Form fields will go here! -->
+                            <div class="form-group form-field">
+                                <div class="col-md-3 col-sm-4 text-right">
+                                    <label class="control-label" for="stock_picking_id">
+                                        For Picking
+                                    </label>
+                                </div>
+                                <div class="col-md-7 col-sm-8">
+                                    <select name="stock_picking_id"
+                                            class="o_website_from_input form-control">
+                                        <t t-foreach="stock_pickings" t-as="stock_picking">
+                                            <option t-att-value="stock_picking.id">
+                                                <t t-esc="stock_picking.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group form-field">
+                                <div class="col-md-3 col-sm-4 text-right">
+                                    <label class="control-label" for="carrier_id">
+                                        Carrier
+                                    </label>
+                                </div>
+                                <div class="col-md-7 col-sm-8">
+                                    <select name="carrier_id"
+                                            class="o_website_from_input form-control">
+                                        <t t-foreach="carriers" t-as="carrier">
+                                            <option t-att-value="carrier.id">
+                                                <t t-esc="carrier.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Add an attachment field -->
+                            <div class="form-group form-field">
+                                <div class="col-md-3 col-sm-4 text-right">
+                                    <label class="control-label" for="tracking_ref">
+                                        Tracking Ref
+                                    </label>
+                                </div>
+                                <div class="col-md-7 col-sm-8">
+                                    <input name="tracking_ref" type="text"
+                                           class="o_website_from_input form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-field">
+                                <div class="col-md-3 col-sm-4 text-right">
+                                    <label class="control-label" for="weight">
+                                        Weight
+                                    </label>
+                                </div>
+                                <div class="col-md-7 col-sm-8">
+                                    <input name="weight" type="text"
+                                           class="o_website_from_input form-control"/>
+                                </div>
+                            </div>
+
+                            <!-- Submit button -->
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-md-7 col-sm-offset-4 col-sm-8">
+                                    <a class="o_website_form_send btn btn-primary btn-lg">
+                                        Save
+                                    </a>
+                                    <span id="o_website_form_result">
+
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </t>
+
+    </template>
+
+    <template id="hello" name="Hello Template">
+        <t t-call="website.layout">
+            <h1>Hello World !</h1>
+            <form mate="POST">
+                <ul>
+                    <li>
+                        <input type="text" name="track_number"/>
+                    </li>
+                    <li>
+                        <input type="text" name="weight"/>
+                    </li>
+                    <li>
+                        <button type="submit" t-att-class="'app-done'">Submit</button>
+                    </li>
+                </ul>
+            </form>
+        </t>
+
+    </template>
+</odoo>

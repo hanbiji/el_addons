@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="delivery_el.model_tracking_reference" model="ir.model">
+            <field name="website_form_access">True</field>
+        </record>
+        <function model="ir.model.fields"
+                  name="formbuilder_whitelist">
+            <value>tracking.reference</value>
+            <value eval="['stock_picking_id', 'tracking_ref', 'carrier_id', 'weight']"/>
+        </function>
+    </data>
+</odoo>
