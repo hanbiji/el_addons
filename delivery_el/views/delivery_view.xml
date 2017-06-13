@@ -19,6 +19,10 @@
                     <div>
                         <field name="houzz_carrier_code"/>
                     </div>
+                    <label for="four_px" />
+                    <div>
+                        <field name="four_px"/>
+                    </div>
                 </group>
             </xpath>
         </field>

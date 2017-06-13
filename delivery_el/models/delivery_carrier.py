@@ -16,6 +16,7 @@ class DeliveryCarrier(models.Model):
     carrier_code = fields.Char('AMAZON Carrier Code')
     walmart_carrier_code = fields.Char('WALMART Carrier Code')
     houzz_carrier_code = fields.Char('HOUZZ Carrier Code')
+    four_px = fields.Many2one('four.px', string='4PX')
     
     @api.multi
     def get_price_available(self, order):

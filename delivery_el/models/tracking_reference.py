@@ -13,7 +13,7 @@ class TrackingReference(models.Model):
     _description = "Tracking Reference"
     _rec_name = 'tracking_ref'
     
-    stock_picking_id = fields.Many2one('stock.picking', string="发货单", required=True)
+    stock_picking_id = fields.Many2one('stock.picking', string=u"发货单", required=True)
     tracking_ref = fields.Char(string='Tracking Reference', copy=False, required=True)
     carrier_id = fields.Many2one("delivery.carrier", string="Carrier", required=True)
     weight = fields.Float('Weight')
