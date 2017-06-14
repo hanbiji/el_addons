@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 # Amazon Order
 
-from zeep import Client
-
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 

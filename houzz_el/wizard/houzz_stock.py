@@ -33,7 +33,7 @@ class HouzzStock(models.TransientModel):
                 listings = houzz.get_listings(Start=start, Status=Status)
             for list in listings['Listings']:
                 sku = list['SKU']
-                _logger.info('%s stock is %s' % (sku, list['Quantity']))
+                # _logger.info('%s stock is %s' % (sku, list['Quantity']))
                 product = self.env['product.product'].search([('default_code', '=', sku)])
                 if product:
                     qty = 0
@@ -41,7 +41,7 @@ class HouzzStock(models.TransientModel):
                     for q in quant:
                         qty += q['qty']
                     update = houzz.update_inventory(sku, qty)
-                    _logger.info(update)
+                    # _logger.info(update)
                 return True
 
         return True

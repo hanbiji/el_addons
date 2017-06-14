@@ -23,6 +23,10 @@
                     <div>
                         <field name="four_px"/>
                     </div>
+                    <label for="product_code" />
+                    <div>
+                        <field name="product_code"/>
+                    </div>
                 </group>
             </xpath>
         </field>
