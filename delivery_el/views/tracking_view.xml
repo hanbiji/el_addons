@@ -32,15 +32,16 @@
 		<field name="model">tracking.reference</field>
 		<field name="arch" type="xml">
 			<tree>
-				<field name="stock_picking_id" />
-				<field name="carrier_id" />
-				<field name="tracking_ref" />
-				<field name="weight" />
-				<field name="actual_cost" />
-				<field name="fuel_cost" />
-				<field name="total_cost" />
-				<field name="pay" />
-				<field name="pay_date" />
+				<field name="stock_picking_id"/>
+				<field name="carrier_id"/>
+				<field name="tracking_ref"/>
+				<field name="weight"/>
+				<field name="actual_cost"/>
+				<field name="fuel_cost"/>
+				<field name="total_cost"/>
+				<field name="shipping_date"/>
+				<field name="pay"/>
+				<field name="pay_date"/>
 			</tree>
 		</field>
 	</record>

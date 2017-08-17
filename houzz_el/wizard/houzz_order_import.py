@@ -253,7 +253,8 @@ class HouzzOrderImport(models.TransientModel):
                             'tax_id': False
                         })
                         # 分配仓库
-                        quants = self.env['stock.quant'].search([('product_id', '=', product[0]['id'])])
+                        quants = self.env['stock.quant'].search([('product_id', '=', product[0]['id']),
+                                                                 ('location_id.usage', '=', 'internal')])
                         for quant in quants:
                             if (quant.qty - product_uom_qty) >= 0.0:
                                 warehouse = self.env['stock.warehouse'].search(

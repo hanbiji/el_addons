@@ -11,11 +11,27 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
     
     carrier_tracking_ref = fields.One2many('tracking.reference', 'stock_picking_id')
+    declared_price = fields.Float('Declared price', default=80)
 
     @api.multi
     def do_new_transfer(self):
         """提交订单到4PX，接收返回物流单号"""
         for pack in self:
+            declare_invoice = list()
+            for operation in pack.pack_operation_product_ids:
+                if operation.qty_done == 0:
+                    declare_pieces = int(operation.product_qty)
+                else:
+                    declare_pieces = int(operation.qty_done)
+                declare_invoice.append({
+                    'declareNote': 'Lamp',  # 配货备注
+                    'declarePieces': declare_pieces,  # 件数(默认: 1)
+                    'declareUnitCode': 'PCE',  # 申报单位类型代码(默认:  PCE)，参照申报单位类型代码表
+                    'eName': 'lamp',  # 海关申报英文品名
+                    'name': u'灯具',  # 海关申报中文品名
+                    'unitPrice': pack.declared_price,  # 单价 0 < Amount <= [10,2]【***】
+                })
+                # raise UserError('Done:%f, Qty:%f' % (operation.qty_done, operation.product_qty))
             if pack.carrier_id:
                 client = Client(wsdl=pack.carrier_id.four_px.order_api)
                 partner = pack.partner_id
@@ -50,17 +66,9 @@ class StockPicking(models.Model):
                     'shipperTelephone': '18256933536',  # 发件人电话号码
                     'shipperCity': 'ZHONGSHAN',
                     'shipperStateOrProvince': 'GUANGDONG',
-                    'declareInvoice': [
-                        {
-                            'declareNote': 'Lamp',  # 配货备注
-                            'declarePieces': '1',  # 件数(默认: 1)
-                            'declareUnitCode': 'PCE',  # 申报单位类型代码(默认:  PCE)，参照申报单位类型代码表
-                            'eName': 'lamp',  # 海关申报英文品名
-                            'name': '灯具',  # 海关申报中文品名
-                            'unitPrice': '30',  # 单价 0 < Amount <= [10,2]【***】
-                        }
-                    ]
+                    'declareInvoice': declare_invoice
                 }
+                # raise UserError(order)
                 result = client.service.createAndPreAlertOrderService(pack.carrier_id.four_px.token, order)
                 if isinstance(result, list):
                     data = result[0]
@@ -74,7 +82,6 @@ class StockPicking(models.Model):
                         'tracking_ref': tracking_number,
                         'carrier_id': pack.carrier_id.id
                     })
-
                     return super(StockPicking, self).do_new_transfer()
                 else:
                     raise UserError(data['errors'][0]['cnMessage'].encode('utf-8').decode('utf-8'))

@@ -1,0 +1,424 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* amazon_el
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-23 07:25+0000\n"
+"PO-Revision-Date: 2017-06-23 15:26+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.0.2\n"
+
+#. module: amazon_el
+#: selection:amazon.order.import,fulfillment_channel:0
+#: selection:sale.order,fulfillment_channel:0
+msgid "AFN"
+msgstr "FBA发货"
+
+#. module: amazon_el
+#: model:ir.ui.menu,name:amazon_el.menu_amazon
+msgid "AMAZON"
+msgstr "AMAZON"
+
+#. module: amazon_el
+#: model:ir.actions.act_window,name:amazon_el.amazon_order_list
+msgid "AMAZON Orders"
+msgstr "AMAZON 订单"
+
+#. module: amazon_el
+#: model:ir.actions.act_window,name:amazon_el.action_amazon_order_import
+msgid "AMAZON 订单导入"
+msgstr "AMAZON 订单导入"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_access_key
+msgid "Access Key"
+msgstr "Access Key"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_account_id
+msgid "Account Id"
+msgstr "Account Id"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_order_import_amazon
+msgid "Amazon"
+msgstr "Amazon"
+
+#. module: amazon_el
+#: model:ir.actions.act_window,name:amazon_el.action_amazon_feed
+msgid "Amazon Feed"
+msgstr "Feed"
+
+#. module: amazon_el
+#: model:ir.model,name:amazon_el.model_amazon_feed
+msgid "Amazon Feed Manage"
+msgstr "Feed 管理"
+
+#. module: amazon_el
+#: model:ir.ui.view,arch_db:amazon_el.view_order_tree_amazon
+msgid "Amazon Id"
+msgstr "Amazon 订单号"
+
+#. module: amazon_el
+#: model:ir.actions.act_window,name:amazon_el.action_amazon_config
+#: model:ir.ui.menu,name:amazon_el.menu_amazon_config_tree
+msgid "Amazon Profile"
+msgstr "API 配置"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_sale_order_amazon_id
+msgid "Amazon Store"
+msgstr "Amazon 店铺"
+
+#. module: amazon_el
+#: model:ir.model,name:amazon_el.model_amazon
+msgid "Amazon conntent"
+msgstr "内容"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_sale_order_amazon_order_status
+msgid "Amazon order status"
+msgstr "Amazon 订单状态"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_amazon_profile
+msgid "Amazon profile"
+msgstr "API 配置"
+
+#. module: amazon_el
+#: selection:amazon,region:0
+msgid "CA"
+msgstr "CA"
+
+#. module: amazon_el
+#: selection:amazon,region:0
+msgid "CN"
+msgstr "CN"
+
+#. module: amazon_el
+#: model:ir.ui.view,arch_db:amazon_el.view_form_amazon_order_import
+msgid "Cancel"
+msgstr "取消"
+
+#. module: amazon_el
+#: selection:amazon.order.import,order_status:0
+#: selection:sale.order,amazon_order_status:0
+msgid "Canceled"
+msgstr "已取消"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_create_uid
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_create_uid
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_order_import_create_uid
+msgid "Created by"
+msgstr "创建者"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_create_date
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_create_date
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_order_import_create_date
+msgid "Created on"
+msgstr "创建在"
+
+#. module: amazon_el
+#: selection:amazon,region:0
+msgid "DE"
+msgstr "DE"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_display_name
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_display_name
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_order_import_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: amazon_el
+#: selection:amazon,region:0
+msgid "ES"
+msgstr "ES"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_error_info
+msgid "Error info"
+msgstr "错误信息"
+
+#. module: amazon_el
+#: model:ir.ui.view,arch_db:amazon_el.amazon_view_sales_order_filter
+msgid "FBA"
+msgstr "FBA"
+
+#. module: amazon_el
+#: selection:amazon,region:0
+msgid "FR"
+msgstr "FR"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_name
+msgid "Feed Id"
+msgstr "Feed Id"
+
+#. module: amazon_el
+#: model:ir.ui.menu,name:amazon_el.amazon_feed_manage
+msgid "Feed List"
+msgstr "Feed List"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_feed_type
+msgid "Feed Type"
+msgstr "Feed Type"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_feed_xml
+msgid "Feed XML"
+msgstr "Feed XML"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_order_import_last_updated_after
+msgid "From Date"
+msgstr "开始时间"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_order_import_last_updated_before
+msgid "From To"
+msgstr "结束时间"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_order_import_fulfillment_channel
+#: model:ir.model.fields,field_description:amazon_el.field_sale_order_fulfillment_channel
+msgid "Fulfillment Channel"
+msgstr "发货渠道"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_id
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_id
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_order_import_id
+msgid "ID"
+msgstr "ID"
+
+#. module: amazon_el
+#: selection:amazon,region:0
+msgid "IN"
+msgstr "IN"
+
+#. module: amazon_el
+#: selection:amazon,region:0
+msgid "IT"
+msgstr "IT"
+
+#. module: amazon_el
+#: model:ir.ui.view,arch_db:amazon_el.view_form_amazon_order_import
+msgid "Import Order"
+msgstr "导入订单"
+
+#. module: amazon_el
+#: selection:amazon,region:0
+msgid "JP"
+msgstr "JP"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon___last_update
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed___last_update
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_order_import___last_update
+msgid "Last Modified on"
+msgstr "最后修改日期"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_write_uid
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_order_import_write_uid
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_write_uid
+msgid "Last Updated by"
+msgstr "最后更新者"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_write_date
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_order_import_write_date
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: amazon_el
+#: selection:amazon.order.import,fulfillment_channel:0
+#: model:ir.ui.view,arch_db:amazon_el.amazon_view_sales_order_filter
+#: selection:sale.order,fulfillment_channel:0
+msgid "MFN"
+msgstr "自发货"
+
+#. module: amazon_el
+#: selection:amazon,region:0
+msgid "MX"
+msgstr "MX"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_marketplace_id
+msgid "Marketplace Id"
+msgstr "Marketplace Id"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_message_error
+msgid "Message error"
+msgstr "错误信息"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_message_processed
+msgid "Message processed"
+msgstr "已处理信息"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_message_successful
+msgid "Message successful"
+msgstr "成功信息"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_message_warning
+msgid "Message warning"
+msgstr "警告信息"
+
+#. module: amazon_el
+#: model:ir.ui.menu,name:amazon_el.amazon_order_import
+msgid "Order Import"
+msgstr "订单导入"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_sale_order_line_amazon_order_item_id
+msgid "Order Item Id"
+msgstr "订单产品 ID"
+
+#. module: amazon_el
+#: model:ir.ui.menu,name:amazon_el.menu_amazon_order_list
+msgid "Order List"
+msgstr "订单列表"
+
+#. module: amazon_el
+#: model:ir.ui.menu,name:amazon_el.menu_amazon_order
+msgid "Order Manage"
+msgstr "订单管理"
+
+#. module: amazon_el
+#: model:ir.ui.view,arch_db:amazon_el.view_order_tree_amazon
+msgid "Order Number"
+msgstr "订单编号"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_order_import_order_status
+msgid "Order status"
+msgstr "状态"
+
+#. module: amazon_el
+#: selection:amazon.order.import,order_status:0
+#: selection:sale.order,amazon_order_status:0
+msgid "PartiallyShipped"
+msgstr "Partially Shipped"
+
+#. module: amazon_el
+#: selection:amazon.order.import,order_status:0
+#: selection:sale.order,amazon_order_status:0
+msgid "Pending"
+msgstr "Pending"
+
+#. module: amazon_el
+#: selection:amazon.order.import,order_status:0
+#: selection:sale.order,amazon_order_status:0
+msgid "PendingAvailability"
+msgstr "Pending Availability"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_region
+msgid "Region"
+msgstr "Region"
+
+#. module: amazon_el
+#: model:ir.model,name:amazon_el.model_sale_order
+msgid "Sales Order"
+msgstr "销售订单"
+
+#. module: amazon_el
+#: model:ir.model,name:amazon_el.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "销售订单明细"
+
+#. module: amazon_el
+#: model:ir.ui.view,arch_db:amazon_el.view_order_tree_amazon
+msgid "Sales Orders"
+msgstr "销售订单"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_secret_key
+msgid "Secret Key"
+msgstr "Secret Key"
+
+#. module: amazon_el
+#: selection:amazon.order.import,order_status:0
+#: selection:sale.order,amazon_order_status:0
+msgid "Shipped"
+msgstr "已发货"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_status
+msgid "Status"
+msgstr "状态"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_name
+msgid "Store Name"
+msgstr "店铺名称"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_feed_submitted_date
+msgid "Submitted Date"
+msgstr "提交时间"
+
+#. module: amazon_el
+#: model:ir.model.fields,field_description:amazon_el.field_amazon_team_id
+msgid "Team"
+msgstr "团队"
+
+#. module: amazon_el
+#: model:ir.ui.view,arch_db:amazon_el.view_order_tree_amazon
+msgid "Total Tax Included"
+msgstr "含税总金额"
+
+#. module: amazon_el
+#: selection:amazon,region:0
+msgid "UK"
+msgstr "UK"
+
+#. module: amazon_el
+#: selection:amazon,region:0
+msgid "US"
+msgstr "US"
+
+#. module: amazon_el
+#: model:ir.model.fields,help:amazon_el.field_amazon_marketplace_id
+msgid "US: ATVPDKIKX0DER, CA: A2EUQ1WTGCTBG2"
+msgstr "US: ATVPDKIKX0DER, CA: A2EUQ1WTGCTBG2"
+
+#. module: amazon_el
+#: selection:amazon.order.import,order_status:0
+#: selection:sale.order,amazon_order_status:0
+msgid "Unfulfillable"
+msgstr "Unfulfillable"
+
+#. module: amazon_el
+#: selection:amazon.order.import,order_status:0
+#: selection:sale.order,amazon_order_status:0
+msgid "Unshipped"
+msgstr "Unshipped"
+
+#. module: amazon_el
+#: model:ir.model,name:amazon_el.model_amazon_order_import
+msgid "amazon.order.import"
+msgstr "订单导入"
+
+#. module: amazon_el
+#: model:ir.ui.view,arch_db:amazon_el.view_form_amazon_feed
+msgid "更新Feed状态"
+msgstr "更新Feed状态"

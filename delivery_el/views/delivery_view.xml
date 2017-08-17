@@ -42,6 +42,7 @@
                     <field name="name" invisible="1"/>
                 </group>
                 <group>
+
                     <label for="first_weight" string="首重"/>
                     <div>
                         <field name='first_weight' size="40"/>
@@ -49,6 +50,10 @@
                     <label for="added_weight" string="续重"/>
                     <div>
                         <field name='added_weight' size="40"/>
+                    </div>
+                    <label for="min_weight" string="最小重量"/>
+                    <div>
+                        <field name='min_weight' size="40"/>
                     </div>
                     <label for="max_length" String="最长边"/>
                     <div class="o_row">
@@ -117,6 +122,7 @@
                             </div>
                         </group>
                         <group>
+                            <field name="declared_price"/>
                             <label for="weight" string="Weight"/>
                             <div>
                                 <field name="weight" class="oe_inline"/>

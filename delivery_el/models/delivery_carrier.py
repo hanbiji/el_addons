@@ -41,12 +41,11 @@ class DeliveryCarrier(models.Model):
             quantity = qty
             ship_price += self.get_price_from_picking(total, weight, volume, quantity, length, width, height) * qty
             
-        total = (order.amount_total or 0.0) - total_delivery
-
-        total = order.currency_id.with_context(date=order.date_order).compute(total, order.company_id.currency_id)
+        # total = (order.amount_total or 0.0) - total_delivery
+        #
+        # total = order.currency_id.with_context(date=order.date_order).compute(total, order.company_id.currency_id)
+        # return self.get_price_from_picking(total, weight, volume, quantity, order)
         return ship_price
-
-        #return self.get_price_from_picking(total, weight, volume, quantity, order)
 
     def get_price_from_picking(self, total, weight, volume, quantity, length, width, height):
         price = volumetric_weight = 0.0
@@ -54,26 +53,31 @@ class DeliveryCarrier(models.Model):
         price_dict = {'price': total, 'volume': volume, 'weight': weight, 'wv': volume * weight, 'quantity': quantity}
         
         for line in self.price_rule_ids:
-            #算体积重
+            # 算体积重，如果设置了体积系数，计算体积重
             if line.volumetric_weight_numerator>0:
                 volumetric_weight = self.get_volumetric_weight(length, width, height, line.volumetric_weight_numerator)
                 price_dict['weight'] = volumetric_weight if volumetric_weight > price_dict['weight'] else price_dict['weight']
                 
             test = safe_eval(line.variable + line.operator + str(line.max_value), price_dict)
+            # 判断最小重量
+            if line.min_weight > 0:
+                if price_dict['weight'] < line.min_weight:
+                    test = False
             
-            #判断长是否超标
+            # 判断长是否超标
             test_l = True
             if line.max_length:
-                l_dict = {'length':length}
+                l_dict = {'length': length}
                 test_l = safe_eval('length' + line.length_operator + str(line.max_length), l_dict)
-            #判断周长是否超标
+
+            # 判断周长是否超标
             test_p = True
             if line.max_perimeter:
                 perimeter = self.get_perimeter(length, width, height)
                 p_dict = {'perimeter':perimeter}
                 test_p = safe_eval('perimeter' + line.perimeter_operator + str(line.max_perimeter), p_dict)
                 
-            if test and test_l and test_p :
+            if test and test_l and test_p:
                 if line.added_weight:
                     price = (line.list_base_price + line.list_price * math.ceil((price_dict[line.variable_factor]-line.first_weight)/line.added_weight)) * line.discount
                 else:

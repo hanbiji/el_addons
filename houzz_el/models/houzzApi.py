@@ -81,6 +81,35 @@ class HouzzApi(object):
         except ValueError:
             return body
 
+    def get_listing(self, sku=None, product_id=None):
+        """Get Listing"""
+        if product_id:
+            url = self.api_url + 'format=json&method=getListing&productId=%s' % product_id
+        else:
+            url = self.api_url + 'format=json&method=getListing&SKU=%s' % sku
+        body = self.get(url)
+        try:
+            return json.loads(body)
+        except ValueError:
+            return body
+
+    def update_listing_shipping_details(self, sku, lead_time_min=3, lead_time_max=7):
+        """Update Listing Shipping Details"""
+        url = self.api_url + 'format=xml&method=updateListing'
+        xml_data = """
+            <UpdateListingRequest>
+                <Listing>
+                    <SKU>{}</SKU>
+                    <ShippingDetails>
+                        <LeadTimeMin>{}</LeadTimeMin>
+                        <LeadTimeMax>{}</LeadTimeMax>
+                    </ShippingDetails>
+                </Listing>
+            </UpdateListingRequest>
+        """.format(sku, lead_time_min, lead_time_max)
+        response = self.post(url, xml_data)
+        return self.encode_response(response)
+
     def get_orders(self, from_date=None, to_date=None, status='New', start=0, limit=1000, format='xml'):
         """Get Orders"""
         url = self.api_url + 'format=%s&method=getOrders&Status=%s&Start=%d&NumberOfItems=%d' % (

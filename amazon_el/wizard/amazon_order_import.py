@@ -37,13 +37,16 @@ class AmazonOrderImport(models.TransientModel):
         mws_order = mws.Orders(self.amazon.access_key, self.amazon.secret_key, self.amazon.account_id,
                                self.amazon.region)
         lastupdatedafter = datetime.strptime(self.last_updated_after, '%Y-%m-%d %H:%M:%S').isoformat()
+        lastupdatedbefore = None
+        if self.last_updated_before:
+            lastupdatedbefore = datetime.strptime(self.last_updated_before, '%Y-%m-%d %H:%M:%S').isoformat()
         fulfillment_channel = self.fulfillment_channel
 
         if self.order_status in ('Unshipped', 'PartiallyShipped'):
             orderstatus = ('Unshipped', 'PartiallyShipped')
         else:
             orderstatus = (self.order_status,)
-        response = mws_order.list_orders((self.amazon.marketplace_id,), lastupdatedafter=lastupdatedafter,
+        response = mws_order.list_orders((self.amazon.marketplace_id,), lastupdatedafter=lastupdatedafter, lastupdatedbefore= lastupdatedbefore,
                                          orderstatus=orderstatus, fulfillment_channels=(fulfillment_channel,))
         self.save_order(response.parsed['Orders']['Order'], self.amazon.id, mws_order)
         if 'NextToken' in response.parsed.keys():
@@ -332,7 +335,8 @@ class AmazonOrderImport(models.TransientModel):
                             'tax_id': False
                         })
                         # 分配仓库
-                        quants = self.env['stock.quant'].search([('product_id', '=', product[0]['id'])])
+                        quants = self.env['stock.quant'].search([('product_id', '=', product[0]['id']),
+                                                                 ('location_id.usage', '=', 'internal')])
                         for quant in quants:
                             if (quant.qty - product_uom_qty) >= 0.0:
                                 warehouse = self.env['stock.warehouse'].search(
