@@ -21,8 +21,8 @@ class StockEc(models.TransientModel):
         self = self.ensure_one()
 
         # 海外仓API相关信息
-        appToken = '7b3668f184a9ab9242049c9661a61409'
-        appKey = '537d1183c1472bd3d07baa4a82ecd229'
+        appToken = 'xx'
+        appKey = 'xx'
         wsdl = 'http://47.52.107.98/default/svc/wsdl'
         client = zeep.Client(wsdl=wsdl)
 
