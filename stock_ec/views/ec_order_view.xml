@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_tree_ec_order" model="ir.ui.view">
+        <field name="name">EC order list</field>
+        <field name="model">ec.order</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ec_order_code"/>
+                <field name="ec_shipping_method"/>
+                <field name="ec_tracking_no"/>
+                <field name="ec_order_status"/>
+                <field name="ec_date_shipping"/>
+                <field name="ec_fee"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <act_window id="action_ec_create_stock_inventory" target="new" name="Create Stock Inventory" res_model="stock.ec"
+                view_mode="form" multi="True"/>
+    <act_window id="action_ec_order" name="EC order list" res_model="ec.order" view_mode="tree,form" />
+
+    <!-- App menu items -->
+    <menuitem id="ec_create_stock_inventory_mu" action="action_ec_create_stock_inventory" name="Create Stock Inventory"
+              parent="stock.menu_stock_inventory_control" sequence="40"/>
+    <menuitem id="ec_order_list_mu" action="action_ec_order" name="EC order list"
+              parent="stock.menu_stock_inventory_control" sequence="50"/>
+
+</odoo>

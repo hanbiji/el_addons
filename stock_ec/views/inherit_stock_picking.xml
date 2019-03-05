@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ec_stock_pick_form_view" model="ir.ui.view">
+        <field name="name">ec.stock.pick.form.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="ec_create_order" type="object" string="Ec Create Order"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Tracking Info" name="ec_extra">
+                    <field name="ec_order_ids">
+                        <tree editable="bottom">
+                            <field name="ec_order_code"/>
+                            <field name="ec_shipping_method"/>
+                            <field name="ec_tracking_no"/>
+                            <field name="ec_order_status"/>
+                            <field name="ec_date_shipping"/>
+                            <field name="ec_fee"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+		</field>
+    </record>
+
+</odoo>

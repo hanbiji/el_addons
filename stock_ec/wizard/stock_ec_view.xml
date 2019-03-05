@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_form_ec_create_stock_inventory" model="ir.ui.view">
+        <field name="name">ec_create_stock_inventory</field>
+        <field name="model">stock.ec</field>
+        <field name="arch" type="xml">
+            <form>
+                <footer>
+                    <button type="object" name="create_stock_inventory" string="Import Stock" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

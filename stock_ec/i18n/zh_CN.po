@@ -1,0 +1,85 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_ec
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-02 02:56+0000\n"
+"PO-Revision-Date: 2019-03-02 02:56+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_ec
+#: model:ir.ui.view,arch_db:stock_ec.view_form_ec_create_stock_inventory
+msgid "Cancel"
+msgstr "取消"
+
+#. module: stock_ec
+#: model:ir.actions.act_window,name:stock_ec.action_ec_create_stock_inventory
+#: model:ir.ui.menu,name:stock_ec.ec_create_stock_inventory_mu
+msgid "Create Stock Inventory"
+msgstr "生成海外仓盘点单"
+
+#. module: stock_ec
+#: model:ir.model.fields,field_description:stock_ec.field_stock_ec_create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: stock_ec
+#: model:ir.model.fields,field_description:stock_ec.field_stock_ec_create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: stock_ec
+#: model:ir.model.fields,field_description:stock_ec.field_stock_ec_display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: stock_ec
+#: model:ir.model.fields,field_description:stock_ec.field_stock_ec_id
+msgid "ID"
+msgstr "ID"
+
+#. module: stock_ec
+#: model:ir.ui.view,arch_db:stock_ec.view_form_ec_create_stock_inventory
+msgid "Import Stock"
+msgstr "导入库存"
+
+#. module: stock_ec
+#: model:ir.model.fields,field_description:stock_ec.field_stock_ec___last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: stock_ec
+#: model:ir.model.fields,field_description:stock_ec.field_stock_ec_write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: stock_ec
+#: model:ir.model.fields,field_description:stock_ec.field_stock_ec_write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: stock_ec
+#: code:addons/stock_ec/wizard/stock_ec.py:74
+#, python-format
+msgid "Product %s does not exist, Please add it."
+msgstr "产品 %s 不存在，请先添加。"
+
+#. module: stock_ec
+#: code:addons/stock_ec/wizard/stock_ec.py:74
+#, python-format
+msgid "Warning!"
+msgstr "警告！"
+
+#. module: stock_ec
+#: model:ir.model,name:stock_ec.model_stock_ec
+msgid "stock.ec"
+msgstr "易仓系统"
+
