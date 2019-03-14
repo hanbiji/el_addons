@@ -16,14 +16,16 @@ class StockEc(models.TransientModel):
 
     _name = 'stock.ec'
 
+    ec_stock = fields.Many2one('ec.config', 'EC Stock', required=True)
+
     @api.multi
     def create_stock_inventory(self):
         self = self.ensure_one()
 
         # 海外仓API相关信息
-        appToken = 'xx'
-        appKey = 'xx'
-        wsdl = 'http://47.52.107.98/default/svc/wsdl'
+        appToken = self.ec_stock.app_token
+        appKey = self.ec_stock.app_key
+        wsdl = self.ec_stock.wsdl_server
         client = zeep.Client(wsdl=wsdl)
 
         # 产品库存
