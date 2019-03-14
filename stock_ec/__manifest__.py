@@ -8,6 +8,7 @@
     'application': True,
     'data': [
         'views/ec_order_view.xml',
+        'views/ec_config_view.xml',
         'views/stock_ec_menu.xml',
         'views/inherit_stock_picking.xml',
         'wizard/stock_ec_view.xml',

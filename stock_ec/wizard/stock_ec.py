@@ -17,6 +17,8 @@ class StockEc(models.TransientModel):
     _name = 'stock.ec'
 
     ec_stock = fields.Many2one('ec.config', 'EC Stock', required=True)
+    page_size = fields.Integer('Page Size', default=100)
+    page = fields.Integer('Page', default=1)
 
     @api.multi
     def create_stock_inventory(self):
@@ -30,8 +32,8 @@ class StockEc(models.TransientModel):
 
         # 产品库存
         params = {
-            "pageSize": 100,
-            "page": 1,
+            "pageSize": self.page_size,
+            "page": self.page,
             "product_sku": "",
             "product_sku_arr": [],
             "warehouse_code": "",

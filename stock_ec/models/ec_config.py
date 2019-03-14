@@ -8,6 +8,7 @@ class EcConfig(models.Model):
     """易仓系统的配置"""
     _name = 'ec.config'
     _description = 'EC System Profile'
+    _rec_name = 'ec_name'
 
     ec_name = fields.Char(string="Ec Stock Name")
     app_token = fields.Char(string="App Token")

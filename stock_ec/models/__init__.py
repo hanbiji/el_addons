@@ -3,3 +3,4 @@
 
 from . import inherit_stock_picking
 from . import ec_order
+from . import ec_config

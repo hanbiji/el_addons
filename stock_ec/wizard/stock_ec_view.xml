@@ -5,6 +5,11 @@
         <field name="model">stock.ec</field>
         <field name="arch" type="xml">
             <form>
+                <group>
+                    <field name="ec_stock" />
+                    <field name="page_size"/>
+                    <field name="page"/>
+                </group>
                 <footer>
                     <button type="object" name="create_stock_inventory" string="Import Stock" class="oe_highlight"/>
                     <button special="cancel" string="Cancel"/>

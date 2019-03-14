@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_form_ec_config" model="ir.ui.view">
+        <field name="name">Create EC STOCK Profile</field>
+        <field name="model">ec.config</field>
+        <field name="arch" type="xml">
+            <form string="EC Stock Config">
+                <sheet>
+                    <group>
+                        <field name="ec_name"/>
+                        <field name="app_token"/>
+                        <field name="app_key" />
+                        <field name="wsdl_server"/>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_ec_config" model="ir.ui.view">
+        <field name="name">EC Stock Profile</field>
+        <field name="model">ec.config</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ec_name"/>
+                <field name="app_token"/>
+            </tree>
+        </field>
+    </record>
+
+
+</odoo>
